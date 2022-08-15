@@ -1,4 +1,4 @@
-package com.GenSpark.Fitness.Tracker;
+package com.GenSpark.Finance.Tracker;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

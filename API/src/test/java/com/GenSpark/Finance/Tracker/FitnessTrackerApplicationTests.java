@@ -1,4 +1,4 @@
-package com.GenSpark.Fitness.Tracker;
+package com.GenSpark.Finance.Tracker;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
