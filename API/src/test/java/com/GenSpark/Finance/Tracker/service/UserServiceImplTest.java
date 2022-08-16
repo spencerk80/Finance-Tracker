@@ -12,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
@@ -42,6 +43,7 @@ class UserServiceImplTest {
         User expected = userService.getUserByID(userID);
         System.out.println(expected);
         assertThat(expected).isNotNull();
+        assertEquals(user.getEmail(), expected.getEmail());
     }
 
     @Test

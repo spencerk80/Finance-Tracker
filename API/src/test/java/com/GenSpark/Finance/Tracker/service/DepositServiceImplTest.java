@@ -7,11 +7,19 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
@@ -32,7 +40,18 @@ class DepositServiceImplTest {
 
     @Test
     void getDeposits() {
-
+        Deposit deposit1 = new Deposit();
+        Deposit deposit2 = new Deposit();
+        Deposit deposit3 = new Deposit();
+        Deposit deposit4 = new Deposit();
+        Deposit deposit5 = new Deposit();
+        List<Deposit> deposits = new ArrayList<>();
+        deposits.add(deposit1);
+        deposits.add(deposit2);
+        deposits.add(deposit3);
+        deposits.add(deposit4);
+        deposits.add(deposit5);
+        System.out.println(deposits);
     }
 
     @Test
@@ -49,6 +68,8 @@ class DepositServiceImplTest {
         Deposit expected = depositService.getDepositByID(depositID);
         System.out.println(expected);
         Assertions.assertThat(expected).isNotNull();
+        assertEquals(deposit.getAmount(), expected.getAmount());
+        assertEquals(deposit.getCategory(), expected.getCategory());
     }
 
     @Test

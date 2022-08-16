@@ -14,7 +14,7 @@ import java.util.Optional;
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
-    private CategoryDao categoryDao;
+    private final CategoryDao categoryDao;
 
     public CategoryServiceImpl(CategoryDao categoryDao) {
         this.categoryDao = categoryDao;

@@ -15,7 +15,7 @@ import java.util.Optional;
 @Service
 public class WithdrawalServiceImpl implements WithdrawalService{
 
-    private WithdrawalDao withdrawalDao;
+    private final WithdrawalDao withdrawalDao;
 
     public WithdrawalServiceImpl(WithdrawalDao withdrawalDao) {
         this.withdrawalDao = withdrawalDao;
@@ -25,7 +25,7 @@ public class WithdrawalServiceImpl implements WithdrawalService{
     public List<Withdrawal> getAll(Integer pageNo, Integer pageSize) {
         Pageable paging = PageRequest.of(pageNo, pageSize);
         Page<Withdrawal> pagedResult = withdrawalDao.findAll(paging);
-        if (pagedResult.hasContent()) return pagedResult.getContent();
+        if (pagedResult != null && pagedResult.hasContent()) return pagedResult.getContent();
         else return new ArrayList<>();
     }
 

@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
@@ -43,13 +44,26 @@ class WithdrawalServiceImplTest {
         int withdrawalID = 0;
         final Withdrawal withdrawal = new Withdrawal();
         given(withdrawalDao.findById(withdrawalID)).willReturn(Optional.of(withdrawal));
+        Withdrawal expected = withdrawalService.getWithdrawalByID(withdrawalID);
+        System.out.println(expected);
+        assertThat(expected).isNotNull();
+        assertEquals(withdrawal.getAmount(), expected.getAmount());
+        assertEquals(withdrawal.getCategory(), expected.getCategory());
     }
 
     @Test
     void updateWithdrawal() {
+        Withdrawal withdrawal = new Withdrawal();
+        given(withdrawalDao.save(withdrawal)).willReturn(withdrawal);
+        withdrawalService.updateWithdrawal(withdrawal);
+        assertThat(withdrawal).isNotNull();
+        verify(withdrawalDao).save(any(Withdrawal.class));
     }
 
     @Test
     void deleteWithdrawalByID() {
+        int withdrawalID = 0;
+        withdrawalService.deleteWithdrawalByID(withdrawalID);
+        verify(withdrawalDao, times(1)).deleteById(withdrawalID);
     }
 }

@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @Service
 public class DepositServiceImpl implements DepositService {
-    private DepositDao depositDao;
+    private final DepositDao depositDao;
 
     public DepositServiceImpl(DepositDao depositDao) {
         this.depositDao = depositDao;
@@ -23,7 +23,7 @@ public class DepositServiceImpl implements DepositService {
     public List<Deposit> getDeposits(Integer pageNo, Integer pageSize) {
         Pageable paging = PageRequest.of(pageNo, pageSize);
         Page<Deposit> pagedResult = depositDao.findAll(paging);
-        if (pagedResult.hasContent()) return pagedResult.getContent();
+        if (pagedResult != null && pagedResult.hasContent()) return pagedResult.getContent();
         else return new ArrayList<>();
     }
 
