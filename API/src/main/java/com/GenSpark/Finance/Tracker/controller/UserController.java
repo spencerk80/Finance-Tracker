@@ -15,22 +15,22 @@ public class UserController {
     }
 
     @GetMapping("/users/{userID}")
-    public User getCategory(@PathVariable String userID) {
+    public User getUser(@PathVariable String userID) {
         return this.userService.getUserByID(Integer.parseInt(userID));
     }
 
     @PostMapping("/users")
-    public User saveCategory(@RequestBody User user) {
+    public User saveUser(@RequestBody User user) {
         return this.userService.saveUser(user);
     }
 
     @PutMapping("/users")
-    public User updateCategory(@RequestBody User user) {
+    public User updateUser(@RequestBody User user) {
         return this.userService.updateUser(user);
     }
 
     @DeleteMapping("/users/{userID}")
-    public User deleteCategory(@PathVariable String userID) {
+    public User deleteUser(@PathVariable String userID) {
         return this.userService.deleteUserByID(Integer.parseInt(userID));
     }
 }

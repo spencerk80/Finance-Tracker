@@ -30,7 +30,7 @@ public class DepositController {
     }
 
     @DeleteMapping("/deposits/{depositId}")
-    public Deposit deleteCategory(@PathVariable String depositId) {
+    public Deposit deleteDeposit(@PathVariable String depositId) {
         return this.depositService.deleteDepositByID(Integer.parseInt(depositId));
     }
 }
