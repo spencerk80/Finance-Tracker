@@ -110,7 +110,7 @@ public class User {
                 "userID=" + userID +
                 ", password='" + password + '\'' +
                 ", fName='" + fName + '\'' +
-                ", lame='" + lName + '\'' +
+                ", lName='" + lName + '\'' +
                 ", email='" + email + '\'' +
                 ", role=" + role +
                 ", verified=" + verified +
