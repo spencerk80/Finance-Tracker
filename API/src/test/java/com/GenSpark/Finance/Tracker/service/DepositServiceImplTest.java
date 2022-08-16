@@ -11,10 +11,12 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,8 +24,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class DepositServiceImplTest {
@@ -40,18 +41,11 @@ class DepositServiceImplTest {
 
     @Test
     void getDeposits() {
-        Deposit deposit1 = new Deposit();
-        Deposit deposit2 = new Deposit();
-        Deposit deposit3 = new Deposit();
-        Deposit deposit4 = new Deposit();
-        Deposit deposit5 = new Deposit();
-        List<Deposit> deposits = new ArrayList<>();
-        deposits.add(deposit1);
-        deposits.add(deposit2);
-        deposits.add(deposit3);
-        deposits.add(deposit4);
-        deposits.add(deposit5);
-        System.out.println(deposits);
+        Deposit depositTest = new Deposit();
+        Page<Deposit> depositPage = new PageImpl<>(Collections.singletonList(depositTest));
+        when(depositDao.findAll(PageRequest.of(0,1))).thenReturn(depositPage);
+        Page<Deposit> depositPage1 = depositDao.findAll(PageRequest.of(0,1));
+        assertEquals(depositPage1.getNumberOfElements(), 1);
     }
 
     @Test

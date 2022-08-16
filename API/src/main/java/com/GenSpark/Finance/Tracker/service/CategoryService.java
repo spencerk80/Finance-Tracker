@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface CategoryService {
 
-    List<Category> getAll(Integer pageNo, Integer pageSize);
+    List<Category> getAll(int pageNo, int pageSize);
     void saveCategory(Category category);
     Category getCategoryByName(String name);
     void updateCategory(Category category);

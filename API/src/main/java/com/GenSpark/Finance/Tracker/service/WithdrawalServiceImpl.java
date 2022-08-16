@@ -22,10 +22,9 @@ public class WithdrawalServiceImpl implements WithdrawalService{
     }
 
     @Override
-    public List<Withdrawal> getAll(Integer pageNo, Integer pageSize) {
-        Pageable paging = PageRequest.of(pageNo, pageSize);
-        Page<Withdrawal> pagedResult = withdrawalDao.findAll(paging);
-        if (pagedResult != null && pagedResult.hasContent()) return pagedResult.getContent();
+    public List<Withdrawal> getAll(int pageNo, int pageSize) {
+        Page<Withdrawal> pagedResult = withdrawalDao.findAll(PageRequest.of(pageNo, pageSize));
+        if (pagedResult != null && pagedResult.hasContent()) return pagedResult.toList();
         else return new ArrayList<>();
     }
 

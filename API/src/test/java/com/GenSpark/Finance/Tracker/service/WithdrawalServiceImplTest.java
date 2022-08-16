@@ -10,13 +10,17 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+
+import java.util.Collections;
 import java.util.Optional;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class WithdrawalServiceImplTest {
@@ -31,6 +35,11 @@ class WithdrawalServiceImplTest {
 
     @Test
     void getAll() {
+        Withdrawal withdrawalTest = new Withdrawal();
+        Page<Withdrawal> withdrawalPage = new PageImpl<>(Collections.singletonList(withdrawalTest));
+        when(withdrawalDao.findAll(PageRequest.of(0,1))).thenReturn(withdrawalPage);
+        Page<Withdrawal> withdrawalPage1 = withdrawalDao.findAll(PageRequest.of(0,1));
+        assertEquals(withdrawalPage1.getNumberOfElements(), 1);
     }
 
     @Test

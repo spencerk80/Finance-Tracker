@@ -5,7 +5,7 @@ import com.GenSpark.Finance.Tracker.entity.Withdrawal;
 import java.util.List;
 
 public interface WithdrawalService {
-    List<Withdrawal> getAll(Integer pageNo, Integer pageSize);
+    List<Withdrawal> getAll(int pageNo, int pageSize);
     void saveWithdrawal(Withdrawal withdrawal);
     Withdrawal getWithdrawalByID(int withdrawalID);
     void updateWithdrawal(Withdrawal withdrawal);

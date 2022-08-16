@@ -13,15 +13,20 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
+import java.util.Collections;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class CategoryServiceImplTest {
@@ -36,6 +41,11 @@ class CategoryServiceImplTest {
 
     @Test
     void getAll() {
+        Category categoryTest = new Category();
+        Page<Category> categoryPage = new PageImpl<>(Collections.singletonList(categoryTest));
+        when(categoryDao.findAll(PageRequest.of(0,1))).thenReturn(categoryPage);
+        Page<Category> categoryPage1 = categoryDao.findAll(PageRequest.of(0,1));
+        assertEquals(categoryPage1.getNumberOfElements(), 1);
     }
 
     @Test

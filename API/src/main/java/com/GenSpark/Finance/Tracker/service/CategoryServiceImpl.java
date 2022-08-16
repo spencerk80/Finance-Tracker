@@ -21,10 +21,9 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<Category> getAll(Integer pageNo, Integer pageSize) {
-        Pageable paging = PageRequest.of(pageNo, pageSize);
-        Page<Category> pagedResult = categoryDao.findAll(paging);
-        if (pagedResult.hasContent()) return pagedResult.getContent();
+    public List<Category> getAll(int pageNo, int pageSize) {
+        Page<Category> pagedResult = categoryDao.findAll(PageRequest.of(pageNo, pageSize));
+        if (pagedResult.hasContent() && pagedResult != null) return pagedResult.toList();
         else return new ArrayList<>();
     }
 

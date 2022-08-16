@@ -5,7 +5,7 @@ import com.GenSpark.Finance.Tracker.entity.Deposit;
 import java.util.List;
 
 public interface DepositService {
-    List<Deposit> getDeposits(Integer pageNo, Integer pageSize);
+    List<Deposit> getDeposits(int pageNo, int pageSize);
     void saveDeposit(Deposit deposit);
     Deposit getDepositByID(int depositID);
     void updateDeposit(Deposit deposit);

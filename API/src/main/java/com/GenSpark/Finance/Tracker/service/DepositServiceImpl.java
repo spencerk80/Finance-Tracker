@@ -20,10 +20,9 @@ public class DepositServiceImpl implements DepositService {
     }
 
     @Override
-    public List<Deposit> getDeposits(Integer pageNo, Integer pageSize) {
-        Pageable paging = PageRequest.of(pageNo, pageSize);
-        Page<Deposit> pagedResult = depositDao.findAll(paging);
-        if (pagedResult != null && pagedResult.hasContent()) return pagedResult.getContent();
+    public List<Deposit> getDeposits(int pageNo, int pageSize) {
+        Page<Deposit> pagedResult = depositDao.findAll(PageRequest.of(pageNo, pageSize));
+        if (pagedResult != null && pagedResult.hasContent()) return pagedResult.toList();
         else return new ArrayList<>();
     }
 
