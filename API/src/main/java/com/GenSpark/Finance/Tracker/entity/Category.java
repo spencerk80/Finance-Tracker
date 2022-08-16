@@ -15,6 +15,7 @@ public class Category {
     @Column(nullable = false)
     private String description;
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private CategoryType type;
 
     public Category() {}
