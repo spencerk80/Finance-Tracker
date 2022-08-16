@@ -57,6 +57,10 @@ def writeDeposits():
 
         file.write(f'INSERT INTO deposit (depositid, user_userid, category_categoryid, amount, date) VALUES ({i}, \'{userid}\', \'{catid}\', \'{amount}\', \'{tDate}\');\n')
 
+# Write the commit
+def writeCommit():
+    file.write('COMMIT;')
+
 # Execute steps
 filename = 'genData.sql'
 
@@ -66,5 +70,6 @@ writeUsers()
 writeCategories()
 writeWithdrawals()
 writeDeposits()
+writeCommit()
 
 closeFile()

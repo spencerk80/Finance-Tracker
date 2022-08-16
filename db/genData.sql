@@ -1306,3 +1306,4 @@ INSERT INTO deposit (depositid, user_userid, category_categoryid, amount, date) 
 INSERT INTO deposit (depositid, user_userid, category_categoryid, amount, date) VALUES (297, '0', '3', '355.12', '2022-05-29');
 INSERT INTO deposit (depositid, user_userid, category_categoryid, amount, date) VALUES (298, '0', '3', '265.12', '2022-06-26');
 INSERT INTO deposit (depositid, user_userid, category_categoryid, amount, date) VALUES (299, '0', '3', '285.15', '2022-08-06');
+COMMIT;
