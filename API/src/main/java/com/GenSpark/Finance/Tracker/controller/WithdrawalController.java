@@ -20,17 +20,17 @@ public class WithdrawalController {
     }
 
     @PostMapping("/withdrawals")
-    public Withdrawal saveWithdrawal(@RequestBody Withdrawal category) {
-        return this.withdrawalService.saveWithdrawal(category);
+    public void saveWithdrawal(@RequestBody Withdrawal category) {
+        this.withdrawalService.saveWithdrawal(category);
     }
 
     @PutMapping("/withdrawals")
-    public Withdrawal updateWithdrawal(@RequestBody Withdrawal category) {
-        return this.withdrawalService.updateWithdrawal(category);
+    public void updateWithdrawal(@RequestBody Withdrawal category) {
+        this.withdrawalService.updateWithdrawal(category);
     }
 
     @DeleteMapping("/withdrawals/{withdrawalID}")
-    public Withdrawal deleteWithdrawal(@PathVariable String withdrawalID) {
-        return this.withdrawalService.deleteWithdrawalByID(Integer.parseInt(withdrawalID));
+    public void deleteWithdrawal(@PathVariable String withdrawalID) {
+        this.withdrawalService.deleteWithdrawalByID(Integer.parseInt(withdrawalID));
     }
 }

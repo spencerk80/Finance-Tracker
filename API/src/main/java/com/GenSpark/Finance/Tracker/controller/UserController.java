@@ -20,17 +20,17 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public User saveUser(@RequestBody User user) {
-        return this.userService.saveUser(user);
+    public void saveUser(@RequestBody User user) {
+        this.userService.saveUser(user);
     }
 
     @PutMapping("/users")
-    public User updateUser(@RequestBody User user) {
-        return this.userService.updateUser(user);
+    public void updateUser(@RequestBody User user) {
+        this.userService.updateUser(user);
     }
 
     @DeleteMapping("/users/{userID}")
-    public User deleteUser(@PathVariable String userID) {
-        return this.userService.deleteUserByID(Integer.parseInt(userID));
+    public void deleteUser(@PathVariable String userID) {
+        this.userService.deleteUserByID(Integer.parseInt(userID));
     }
 }

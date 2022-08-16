@@ -20,17 +20,17 @@ public class CategoryController {
     }
 
     @PostMapping("/categories")
-    public Category saveCategory(@RequestBody Category category) {
-        return this.categoryService.saveCategory(category);
+    public void saveCategory(@RequestBody Category category) {
+        this.categoryService.saveCategory(category);
     }
 
     @PutMapping("/categories")
-    public Category updateCategory(@RequestBody Category category) {
-        return this.categoryService.updateCategory(category);
+    public void updateCategory(@RequestBody Category category) {
+        this.categoryService.updateCategory(category);
     }
 
     @DeleteMapping("/categories/{categoryName}")
-    public Category deleteCategory(@PathVariable String categoryName) {
-        return this.categoryService.deleteCategoryByName(categoryName);
+    public void deleteCategory(@PathVariable String categoryName) {
+        this.categoryService.deleteCategoryByName(categoryName);
     }
 }

@@ -20,17 +20,17 @@ public class DepositController {
     }
 
     @PostMapping("/deposits")
-    public Deposit saveDeposit(@RequestBody Deposit deposit) {
-        return this.depositService.saveDeposit(deposit);
+    public void saveDeposit(@RequestBody Deposit deposit) {
+        this.depositService.saveDeposit(deposit);
     }
 
     @PutMapping("/deposits")
-    public Deposit updateDeposit(@RequestBody Deposit deposit) {
-        return this.depositService.updateDeposit(deposit);
+    public void updateDeposit(@RequestBody Deposit deposit) {
+        this.depositService.updateDeposit(deposit);
     }
 
     @DeleteMapping("/deposits/{depositId}")
-    public Deposit deleteDeposit(@PathVariable String depositId) {
-        return this.depositService.deleteDepositByID(Integer.parseInt(depositId));
+    public void deleteDeposit(@PathVariable String depositId) {
+        this.depositService.deleteDepositByID(Integer.parseInt(depositId));
     }
 }
