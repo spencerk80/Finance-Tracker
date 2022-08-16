@@ -9,13 +9,14 @@ public class Withdrawal {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int withdrawalID;
-    @Column(nullable = false)
+    @ManyToOne
     private Category category;
-    @Column(nullable = false)
+    @OneToOne
     private User user;
     @Column(nullable = false)
     private float amount;
     @Column(nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date date;
     private String userNote;
 
