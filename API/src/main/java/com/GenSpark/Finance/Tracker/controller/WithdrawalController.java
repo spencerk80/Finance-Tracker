@@ -7,8 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 public class WithdrawalController {
-    @Autowired
+
     private WithdrawalService withdrawalService;
+
+    @Autowired
+    public WithdrawalController(WithdrawalService withdrawalService) {
+        this.withdrawalService = withdrawalService;
+    }
 
     @GetMapping("/withdrawals/{withdrawalID}")
     public Withdrawal getCategory(@PathVariable String withdrawalID) {

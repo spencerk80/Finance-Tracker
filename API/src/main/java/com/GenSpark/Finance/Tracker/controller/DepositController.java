@@ -6,8 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 public class DepositController {
-    @Autowired
+
     private DepositService depositService;
+
+    @Autowired
+    public DepositController(DepositService depositService) {
+        this.depositService = depositService;
+    }
 
     @GetMapping("/deposits/{depositID}")
     public Deposit getDeposit(@PathVariable String depositID) {
