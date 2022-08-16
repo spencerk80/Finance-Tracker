@@ -10,9 +10,9 @@ public class Withdrawal {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int withdrawalID;
     @Column(nullable = false)
-    private Category category;
+    private transient Category category;
     @Column(nullable = false)
-    private User user;
+    private transient User user;
     @Column(nullable = false)
     private float amount;
     @Column(nullable = false)
