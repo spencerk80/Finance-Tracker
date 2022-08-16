@@ -11,8 +11,8 @@
 	<groupId>com.GenSpark</groupId>
 	<artifactId>Finance-Tracker</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Fitness-Tracker</name>
-	<description>RESTful API for the Fitness Tracker app team project</description>
+	<name>Finance-Tracker</name>
+	<description>RESTful API for the Finance Tracker app team project</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
