@@ -12,6 +12,6 @@ public interface WithdrawalDao extends JpaRepository<Withdrawal, Integer> {
     @Query(value = "SELECT * FROM withdrawal WHERE user_userid = ?1 LIMIT ?2, ?3", nativeQuery = true)
     List<Withdrawal> findAllByUserID(int userID, int pageNo, int pageSize);
 
-    @Query(value = "SELECT FROM withdrawal WHERE user_userid = ?1 AND category_categoryID = ?2 LIMIT ?3, ?4", nativeQuery = true)
+    @Query(value = "SELECT * FROM withdrawal WHERE user_userid = ?1 AND category_categoryID = ?2 LIMIT ?3, ?4", nativeQuery = true)
     List<Withdrawal> findAllByUserIdAndCatID(int userID, int catID, int pageNo, int pageSize);
 }

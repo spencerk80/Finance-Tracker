@@ -50,6 +50,6 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<Category> getAllByType(CategoryType type) {
-        return categoryDao.findAllByCategoryType(type);
+        return categoryDao.findAllByCategoryType(type.toString());
     }
 }
