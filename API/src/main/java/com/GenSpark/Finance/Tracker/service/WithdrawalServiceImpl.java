@@ -2,7 +2,6 @@ package com.GenSpark.Finance.Tracker.service;
 
 
 import com.GenSpark.Finance.Tracker.dao.WithdrawalDao;
-import com.GenSpark.Finance.Tracker.entity.Deposit;
 import com.GenSpark.Finance.Tracker.entity.Withdrawal;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
