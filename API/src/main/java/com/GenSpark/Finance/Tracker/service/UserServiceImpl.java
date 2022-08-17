@@ -2,6 +2,7 @@ package com.GenSpark.Finance.Tracker.service;
 
 import com.GenSpark.Finance.Tracker.dao.UserDao;
 import com.GenSpark.Finance.Tracker.entity.User;
+import com.GenSpark.Finance.Tracker.exceptions.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -22,9 +23,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserByID(int userID) {
-        Optional<User> user = userDao.findById(userID);
-        if (user.isPresent()) return user.get();
-        else throw new RuntimeException("User with ID: " + userID + " not found.");
+        return userDao.findById(userID).orElseThrow(() -> new ResourceNotFoundException("No User Found With Id: " + userID));
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.GenSpark.Finance.Tracker.service;
 
 import com.GenSpark.Finance.Tracker.dao.DepositDao;
 import com.GenSpark.Finance.Tracker.entity.Deposit;
+import com.GenSpark.Finance.Tracker.exceptions.ResourceNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -33,9 +34,7 @@ public class DepositServiceImpl implements DepositService {
 
     @Override
     public Deposit getDepositByID(int depositID) {
-        Optional<Deposit> deposit = depositDao.findById(depositID);
-        if (deposit.isPresent()) return deposit.get();
-        else throw new RuntimeException("Deposit with ID: " + depositID + " not found.");
+        return depositDao.findById(depositID).orElseThrow(() -> new ResourceNotFoundException("No Deposit Found With Id: " + depositID));
     }
 
     @Override

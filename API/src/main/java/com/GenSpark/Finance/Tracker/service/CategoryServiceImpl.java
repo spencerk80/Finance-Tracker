@@ -3,6 +3,7 @@ package com.GenSpark.Finance.Tracker.service;
 import com.GenSpark.Finance.Tracker.dao.CategoryDao;
 import com.GenSpark.Finance.Tracker.entity.Category;
 import com.GenSpark.Finance.Tracker.enums.CategoryType;
+import com.GenSpark.Finance.Tracker.exceptions.ResourceNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -34,9 +35,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category getCategoryByName(String name) {
-        Optional<Category> category = categoryDao.findByName(name);
-        if (category.isPresent()) return category.get();
-        else throw new RuntimeException("Category with name: " + name + " not found.");
+        return categoryDao.findByName(name).orElseThrow(() -> new ResourceNotFoundException("No Category Found With Name: " + name));
     }
 
     @Override

@@ -3,11 +3,13 @@ package com.GenSpark.Finance.Tracker.service;
 
 import com.GenSpark.Finance.Tracker.dao.WithdrawalDao;
 import com.GenSpark.Finance.Tracker.entity.Withdrawal;
+import com.GenSpark.Finance.Tracker.exceptions.ResourceNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.PersistenceException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -35,9 +37,8 @@ public class WithdrawalServiceImpl implements WithdrawalService{
 
     @Override
     public Withdrawal getWithdrawalByID(int withdrawalID) {
-        Optional<Withdrawal> withdrawal = withdrawalDao.findById(withdrawalID);
-        if (withdrawal.isPresent()) return withdrawal.get();
-        else throw new RuntimeException("Withdrawal with ID: " + withdrawalID + " not found.");
+        return withdrawalDao.findById(withdrawalID).orElseThrow(() -> new ResourceNotFoundException("No Withdrawal Found With Id: " + withdrawalID));
+
     }
 
     @Override
