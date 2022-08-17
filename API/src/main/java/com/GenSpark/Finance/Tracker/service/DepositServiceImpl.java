@@ -3,8 +3,8 @@ package com.GenSpark.Finance.Tracker.service;
 import com.GenSpark.Finance.Tracker.dao.DepositDao;
 import com.GenSpark.Finance.Tracker.entity.Deposit;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -46,5 +46,21 @@ public class DepositServiceImpl implements DepositService {
     @Override
     public void deleteDepositByID(int depositID) {
         depositDao.deleteById(depositID);
+    }
+
+    @Override
+    public List<Deposit> getPageOfDepositsByUserID(int userID, int pageNo, int pageSize) {
+        List<Deposit> depositList = depositDao.findAllByUserID(userID, pageNo, pageSize);
+        Page<Deposit> pagedResult = new PageImpl<>(depositList);
+        if (pagedResult != null && pagedResult.hasContent()) return pagedResult.toList();
+        else return new ArrayList<>();
+    }
+
+    @Override
+    public List<Deposit> getPageOfDepositsByUserIdAndCatID(int userID, int catID, int pageNo, int pageSize) {
+        List<Deposit> depositList = depositDao.findAllByUserIdAndCatID(userID, catID, pageNo, pageSize);
+        Page<Deposit> pagedResult = new PageImpl<>(depositList);
+        if (pagedResult != null && pagedResult.hasContent()) return pagedResult.toList();
+        else return new ArrayList<>();
     }
 }

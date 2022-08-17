@@ -21,6 +21,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -80,5 +81,17 @@ class CategoryServiceImplTest {
         String name = "Rent";
         categoryService.deleteCategoryByName(name);
         verify(categoryDao, times(1)).deleteByName(name);
+    }
+
+    @Test
+    void getAllByType() {
+        Category category = new Category("Housing", "Rent, Utilities, Etc.", CategoryType.WITHDRAWAL);
+        Category category1 = new Category("Transportation", "Car Insurance, Gas, Etc.", CategoryType.WITHDRAWAL);
+        Category category2 = new Category("Food", "Groceries, Eating Out, Etc.", CategoryType.WITHDRAWAL);
+        given(categoryDao.findAllByCategoryType(CategoryType.WITHDRAWAL)).willReturn(List.of(category, category1, category2));
+        List<Category> categoryList = categoryService.getAllByType(CategoryType.WITHDRAWAL);
+        System.out.println(categoryList);
+        assertThat(categoryList).isNotNull();
+        assertEquals(categoryList.size(), 3);
     }
 }

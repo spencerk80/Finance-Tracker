@@ -7,12 +7,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 
 
 import java.util.ArrayList;
@@ -80,5 +78,37 @@ class DepositServiceImplTest {
         int depositID = 0;
         depositService.deleteDepositByID(depositID);
         verify(depositDao, times(1)).deleteById(depositID);
+    }
+
+    @Test
+    void getPageOfDepositsByUserID() {
+        Deposit depositTest = new Deposit();
+        Deposit depositTest1 = new Deposit();
+        Deposit depositTest2 = new Deposit();
+        List<Deposit> depositList = new ArrayList<>();
+        depositList.add(depositTest);
+        depositList.add(depositTest1);
+        depositList.add(depositTest2);
+        when(depositDao.findAllByUserID(0, 0, 3)).thenReturn(depositList);
+        List<Deposit> depositList1 = depositDao.findAllByUserID(0, 0, 3);
+        Page<Deposit> depositPage = new PageImpl<>(depositList1);
+        System.out.println(depositPage.toList());
+        assertEquals(depositPage.getNumberOfElements(), 3);
+    }
+
+    @Test
+    void getPageOfDepositsByUserIdAndCatID() {
+        Deposit depositTest = new Deposit();
+        Deposit depositTest1 = new Deposit();
+        Deposit depositTest2 = new Deposit();
+        List<Deposit> depositList = new ArrayList<>();
+        depositList.add(depositTest);
+        depositList.add(depositTest1);
+        depositList.add(depositTest2);
+        when(depositDao.findAllByUserIdAndCatID(0,0, 0, 3)).thenReturn(depositList);
+        List<Deposit> depositList1 = depositDao.findAllByUserIdAndCatID(0,0, 0, 3);
+        Page<Deposit> depositPage = new PageImpl<>(depositList1);
+        System.out.println(depositPage.toList());
+        assertEquals(depositPage.getNumberOfElements(), 3);
     }
 }

@@ -2,6 +2,7 @@ package com.GenSpark.Finance.Tracker.service;
 
 import com.GenSpark.Finance.Tracker.dao.CategoryDao;
 import com.GenSpark.Finance.Tracker.entity.Category;
+import com.GenSpark.Finance.Tracker.enums.CategoryType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -47,5 +48,10 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void deleteCategoryByName(String name) {
         categoryDao.deleteByName(name);
+    }
+
+    @Override
+    public List<Category> getAllByType(CategoryType type) {
+        return categoryDao.findAllByCategoryType(type);
     }
 }

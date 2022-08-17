@@ -10,4 +10,6 @@ public interface WithdrawalService {
     Withdrawal getWithdrawalByID(int withdrawalID);
     void updateWithdrawal(Withdrawal withdrawal);
     void deleteWithdrawalByID(int withdrawalID);
+    List<Withdrawal> getPageOfWithdrawalsByUserID(int userID, int pageNo, int pageSize);
+    List<Withdrawal> getPageOfWithdrawalsByUserIdAndCatID(int userID, int catID, int pageNo, int pageSize);
 }

@@ -36,4 +36,11 @@ public class UserServiceImpl implements UserService {
     public void deleteUserByID(int userID) {
         userDao.deleteById(userID);
     }
+
+    @Override
+    public User getUserByEmail(String email) {
+        Optional<User> user = userDao.findUserByEmail(email);
+        if (user.isPresent()) return user.get();
+        else throw new RuntimeException("User with email: " + email + " not found.");
+    }
 }

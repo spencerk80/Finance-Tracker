@@ -61,4 +61,14 @@ class UserServiceImplTest {
         userService.deleteUserByID(userID);
         verify(userDao, times(1)).deleteById(userID);
     }
+
+    @Test
+    void getUserByEmail() {
+        final User user = new User("pass123", "John", "Doe", "j.doe@gmail.com", UserRole.USER, true);
+        String email = "j.doe@gmail.com";
+        given(userDao.findUserByEmail(email)).willReturn(Optional.of(user));
+        User expected = userService.getUserByEmail(user.getEmail());
+        assertThat(expected).isNotNull();
+        assertEquals(expected.getfName(), user.getfName());
+    }
 }

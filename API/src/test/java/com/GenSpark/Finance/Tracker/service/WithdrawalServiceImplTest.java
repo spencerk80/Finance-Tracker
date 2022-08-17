@@ -1,11 +1,10 @@
 package com.GenSpark.Finance.Tracker.service;
 
 import com.GenSpark.Finance.Tracker.dao.WithdrawalDao;
+import com.GenSpark.Finance.Tracker.entity.Deposit;
 import com.GenSpark.Finance.Tracker.entity.Withdrawal;
 import org.junit.jupiter.api.Test;
 
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -14,7 +13,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -74,5 +75,38 @@ class WithdrawalServiceImplTest {
         int withdrawalID = 0;
         withdrawalService.deleteWithdrawalByID(withdrawalID);
         verify(withdrawalDao, times(1)).deleteById(withdrawalID);
+    }
+
+    @Test
+    void getPageOfWithdrawalsByUserID() {
+        Withdrawal withdrawalTest = new Withdrawal();
+        Withdrawal withdrawalTest1 = new Withdrawal();
+        Withdrawal withdrawalTest2 = new Withdrawal();
+        List<Withdrawal> withdrawalList = new ArrayList<>();
+        withdrawalList.add(withdrawalTest);
+        withdrawalList.add(withdrawalTest1);
+        withdrawalList.add(withdrawalTest2);
+        when(withdrawalDao.findAllByUserID(0, 0, 3)).thenReturn(withdrawalList);
+        List<Withdrawal> withdrawalList1 = withdrawalDao.findAllByUserID(0, 0, 3);
+        Page<Withdrawal> withdrawalPage = new PageImpl<>(withdrawalList1);
+        System.out.println(withdrawalPage.toList());
+        assertEquals(withdrawalPage.getNumberOfElements(), 3);
+    }
+
+    @Test
+    void getPageOfWithdrawalsByUserIdAndCatID() {
+        Withdrawal withdrawalTest = new Withdrawal();
+        Withdrawal withdrawalTest1 = new Withdrawal();
+        Withdrawal withdrawalTest2 = new Withdrawal();
+        List<Withdrawal> withdrawalList = new ArrayList<>();
+        withdrawalList.add(withdrawalTest);
+        withdrawalList.add(withdrawalTest1);
+        withdrawalList.add(withdrawalTest2);
+        when(withdrawalDao.findAllByUserIdAndCatID(0, 0, 0, 3)).thenReturn(withdrawalList);
+        List<Withdrawal> withdrawalList1 = withdrawalDao.findAllByUserIdAndCatID(0, 0, 0, 3);
+        Page<Withdrawal> withdrawalPage = new PageImpl<>(withdrawalList1);
+        System.out.println(withdrawalPage.toList());
+        assertEquals(withdrawalPage.getNumberOfElements(), 3);
+
     }
 }
