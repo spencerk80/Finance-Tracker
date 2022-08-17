@@ -16,7 +16,7 @@ public class User {
     @Column(nullable = false)
     private String fName;
     @Column(nullable = false)
-    private String lame;
+    private String lName;
     @Column(nullable = false, unique = true)
     private String email;
     @Column(nullable = false)
@@ -27,10 +27,10 @@ public class User {
 
     public User() {}
 
-    public User(String password, String fName, String lame, String email, UserRole role, boolean verified) {
+    public User(String password, String fName, String lName, String email, UserRole role, boolean verified) {
         this.password = password;
         this.fName = fName;
-        this.lame = lame;
+        this.lName = lName;
         this.email = email;
         this.role = role;
         this.verified = verified;
@@ -56,12 +56,12 @@ public class User {
         this.fName = fName;
     }
 
-    public String getLame() {
-        return lame;
+    public String getlName() {
+        return lName;
     }
 
-    public void setLame(String lame) {
-        this.lame = lame;
+    public void setlName(String lName) {
+        this.lName = lName;
     }
 
     public String getEmail() {
@@ -110,7 +110,7 @@ public class User {
                 "userID=" + userID +
                 ", password='" + password + '\'' +
                 ", fName='" + fName + '\'' +
-                ", lame='" + lame + '\'' +
+                ", lName='" + lName + '\'' +
                 ", email='" + email + '\'' +
                 ", role=" + role +
                 ", verified=" + verified +
