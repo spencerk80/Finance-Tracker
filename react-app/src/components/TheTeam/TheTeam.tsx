@@ -5,14 +5,20 @@ const TheTeam = () => {
   return (
     <section
       id="TheTeam"
-      className="bg-white text-brand container m-auto flex flex-col text-center items-center justify-center py-8 border-b border-brand-light min-w-full min-h-[600px]"
+      className="bg-white text-brand container m-auto flex flex-col text-center items-stretch justify-center py-8 border-b border-brand-light min-w-full min-h-[600px]"
     >
       <h1 className="mt-2 mb-4 max-w-sm m-auto text-brand">The Team</h1>
       <hr className="border-b w-8 m-auto my-6" />
-      <div className="flex flex-wrap justify-between items-start">
+      <div className="flex flex-row justify-between items-center">
         <div className="w-full sm:w-full md:w-1/3 flex flex-col items-center justify-center p-4">
           <div className="w-[250px] h-[250px] m-4">
-            <img src={Jack} alt="Jack" className="rounded-full" />
+            <a href="https://www.linkedin.com/in/jack-vandyke/">
+              <img
+                src={Jack}
+                alt="Jack"
+                className="rounded-full cursor-pointer"
+              />
+            </a>
           </div>
           <h1 className="m-4 text-brand text-2xl">Jack</h1>
           <p className="leading-normal mb-4">
