@@ -1,4 +1,5 @@
 import HappyPerson from "/home/jack/Documents/web-projects/Finance-Tracker/react-app/src/assets/HappyPerson.png";
+import Jack from "/home/jack/Documents/web-projects/Finance-Tracker/react-app/src/assets/JackPic.jpg";
 
 const TheTeam = () => {
   return (
@@ -10,8 +11,8 @@ const TheTeam = () => {
       <hr className="border-b w-8 m-auto my-6" />
       <div className="flex flex-wrap justify-between items-start">
         <div className="w-full sm:w-full md:w-1/3 flex flex-col items-center justify-center p-4">
-          <div className="w-36 h-36 m-4">
-            <img src={HappyPerson} alt="HappyPerson" className="rounded-full" />
+          <div className="w-[250px] h-[250px] m-4">
+            <img src={Jack} alt="Jack" className="rounded-full" />
           </div>
           <h1 className="m-4 text-brand text-2xl">Jack</h1>
           <p className="leading-normal mb-4">
@@ -20,7 +21,7 @@ const TheTeam = () => {
           </p>
         </div>
         <div className="w-full sm:w-1/2 md:w-1/3 flex flex-col items-center justify-center p-4">
-          <div className="w-36 h-36 m-4">
+          <div className="w-[250px] h-[250px] m-4">
             <img src={HappyPerson} alt="HappyPerson" className="rounded-full" />
           </div>
           <h1 className="m-4 text-brand text-2xl">Miguel</h1>
@@ -30,7 +31,7 @@ const TheTeam = () => {
           </p>
         </div>
         <div className="w-full sm:w-1/2 md:w-1/3 flex flex-col items-center justify-center p-4">
-          <div className="w-36 h-36 m-4">
+          <div className="w-[250px] h-[250px] m-4">
             <img src={HappyPerson} alt="HappyPerson" className="rounded-full" />
           </div>
           <h1 className="m-4 text-brand text-2xl">Kris</h1>
