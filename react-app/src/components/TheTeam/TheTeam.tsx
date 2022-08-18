@@ -9,7 +9,7 @@ const TheTeam = () => {
     >
       <h1 className="mt-2 mb-4 max-w-sm m-auto text-brand">The Team</h1>
       <hr className="border-b w-8 m-auto my-6" />
-      <div className="flex flex-row justify-between items-center">
+      <div className="flex flex-wrap justify-between items-center">
         <div className="w-full sm:w-full md:w-1/3 flex flex-col items-center justify-center p-4">
           <div className="w-[250px] h-[250px] m-4">
             <a href="https://www.linkedin.com/in/jack-vandyke/">
