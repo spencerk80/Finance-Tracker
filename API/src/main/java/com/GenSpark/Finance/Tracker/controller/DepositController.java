@@ -5,6 +5,7 @@ import com.GenSpark.Finance.Tracker.service.DepositService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+@RestController
 public class DepositController {
 
     private DepositService depositService;
