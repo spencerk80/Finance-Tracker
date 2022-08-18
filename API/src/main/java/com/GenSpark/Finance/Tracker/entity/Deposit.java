@@ -92,7 +92,7 @@ public class Deposit {
 
     @Override
     public String toString() {
-        return "Withdrawal{" +
+        return "Deposit{" +
                 "depositeID=" + depositID +
                 ", category=" + category +
                 ", user=" + user +
