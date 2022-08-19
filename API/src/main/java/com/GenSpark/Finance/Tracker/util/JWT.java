@@ -7,6 +7,7 @@ import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 import java.security.Key;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,15 +19,14 @@ public class JWT {
     private static final List<String> blacklist = new ArrayList<>();
 
     public static String createJWT(UserDetails userDetails) {
-        LocalDate   now         = LocalDate.now();
-        Date        iat         = Date.from(now.atStartOfDay(ZoneId.systemDefault()).toInstant());
-        Date        exp         = Date.from(now.plusDays(1).atStartOfDay(ZoneId.systemDefault()).toInstant());
-        byte[]      keyBytes    = DatatypeConverter.parseBase64Binary(secretKey);
-        Key         signingKey  = new SecretKeySpec(keyBytes, SignatureAlgorithm.HS256.getJcaName());
+        LocalDateTime   iat         = LocalDateTime.now();
+        LocalDateTime   exp         = iat.plusDays(1);
+        byte[]          keyBytes    = DatatypeConverter.parseBase64Binary(secretKey);
+        Key             signingKey  = new SecretKeySpec(keyBytes, SignatureAlgorithm.HS256.getJcaName());
 
         JwtBuilder jwtBuilder = Jwts.builder()
-                .setIssuedAt(iat)
-                .setExpiration(exp)
+                .setIssuedAt(Date.from(iat.atZone(ZoneId.systemDefault()).toInstant()))
+                .setExpiration(Date.from(exp.atZone(ZoneId.systemDefault()).toInstant()))
                 .claim("email", userDetails.getUsername())
                 .claim("role", userDetails.getAuthorities().toString())
                 .signWith(signingKey);
@@ -54,13 +54,14 @@ public class JWT {
         return (String) claims.get("role");
     }
 
-    public static Date getJwtExpiration(String jwt) {
+    public static LocalDateTime getJwtExpiration(String jwt) {
         return Jwts.parserBuilder()
                 .setSigningKey(DatatypeConverter.parseBase64Binary(secretKey))
                 .build()
                 .parseClaimsJws(jwt)
                 .getBody()
-                .getExpiration();
+                .getExpiration()
+                .toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
     }
 
     public static boolean validateJwt(String jwt, UserDetails userDetails) {
@@ -92,10 +93,10 @@ public class JWT {
 
         //Clean up the blacklist on a separate thread
         new Thread(() -> {
-            Date now = new Date();
+            LocalDateTime now = LocalDateTime.now();
 
             blacklist.forEach(token -> {
-                if(JWT.getJwtExpiration(token).before(now))
+                if(JWT.getJwtExpiration(token).isBefore(now))
                     blacklist.remove(token);
             });
         });

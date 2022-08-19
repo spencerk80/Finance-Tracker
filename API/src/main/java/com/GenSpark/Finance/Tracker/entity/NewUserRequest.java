@@ -55,10 +55,13 @@ public class NewUserRequest {
     }
 
     public boolean validate() {
+        //(Alphanumeric . - _)@(Alphanumeric).(Alphanumeric)
         if( ! email.matches("[a-zA-Z\\d._-]+@.+\\..+")) return false;
         if("".equals(fname)) return false;
         if("".equals(lname)) return false;
-        if( ! password.matches("^(?=.+[a-z])(?=.+[A-Z])(?=.+\\d)[a-zA-Z\\d!@#$%^&*()_+-='\"oO,<.>/?]{8,32}$"))
+        //Requires the presence of at least one lower, one upper and one digit. Symbols allowed:
+        //!@#$%^&*()_+-='";:,<.>\/?
+        if( ! password.matches("^(?=.+[a-z])(?=.+[A-Z])(?=.+\\d)[a-zA-Z\\d!@#$%^&*()_+-='\";:,<.>\\/?]{8,32}$"))
             return false;
 
         return password.equals(passwordConfirm);
