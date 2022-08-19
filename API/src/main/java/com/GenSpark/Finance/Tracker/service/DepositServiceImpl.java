@@ -10,26 +10,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class DepositServiceImpl implements DepositService {
+
     private final DepositDao depositDao;
 
     public DepositServiceImpl(DepositDao depositDao) {
         this.depositDao = depositDao;
-    }
-
-    @Override
-    public List<Deposit> getDeposits(int pageNo, int pageSize) {
-        Page<Deposit> pagedResult = depositDao.findAll(PageRequest.of(pageNo, pageSize));
-        if (pagedResult != null && pagedResult.hasContent()) return pagedResult.toList();
-        else return new ArrayList<>();
-    }
-
-    @Override
-    public void saveDeposit(Deposit deposit) {
-        depositDao.save(deposit);
     }
 
     @Override
@@ -38,13 +26,28 @@ public class DepositServiceImpl implements DepositService {
     }
 
     @Override
-    public void updateDeposit(Deposit deposit) {
+    public String saveDeposit(Deposit deposit) {
         depositDao.save(deposit);
+        return "Successfully added the category";
     }
 
     @Override
-    public void deleteDepositByID(int depositID) {
+    public String updateDeposit(Deposit deposit) {
+        depositDao.save(deposit);
+        return "Successfully updated the category";
+    }
+
+    @Override
+    public String deleteDepositByID(int depositID) {
         depositDao.deleteById(depositID);
+        return "Successfully deleted the category";
+    }
+
+    @Override
+    public List<Deposit> getDeposits(int pageNo, int pageSize) {
+        Page<Deposit> pagedResult = depositDao.findAll(PageRequest.of(pageNo, pageSize));
+        if (pagedResult != null && pagedResult.hasContent()) return pagedResult.toList();
+        else return new ArrayList<>();
     }
 
     @Override

@@ -3,35 +3,41 @@ package com.GenSpark.Finance.Tracker.controller;
 import com.GenSpark.Finance.Tracker.entity.Deposit;
 import com.GenSpark.Finance.Tracker.service.DepositService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class DepositController {
 
-    private DepositService depositService;
+    private final DepositService depositService;
 
     @Autowired
     public DepositController(DepositService depositService) {
         this.depositService = depositService;
     }
 
+//    @GetMapping("/deposits")
+//    public ResponseEntity<List<Deposit>> getDeposits() {
+//        return ResponseEntity.ok().body(this.depositService.getDeposits(1, 1));
+//    }
+
     @GetMapping("/deposits/{depositID}")
-    public Deposit getDeposit(@PathVariable String depositID) {
-        return this.depositService.getDepositByID(Integer.parseInt(depositID));
+    public ResponseEntity<Deposit> getDeposit(@PathVariable String depositID) {
+        return ResponseEntity.ok().body(this.depositService.getDepositByID(Integer.parseInt(depositID)));
     }
 
     @PostMapping("/deposits")
-    public void saveDeposit(@RequestBody Deposit deposit) {
-        this.depositService.saveDeposit(deposit);
+    public ResponseEntity<String> saveDeposit(@RequestBody Deposit deposit) {
+        return ResponseEntity.ok().body(this.depositService.saveDeposit(deposit));
     }
 
     @PutMapping("/deposits")
-    public void updateDeposit(@RequestBody Deposit deposit) {
-        this.depositService.updateDeposit(deposit);
+    public ResponseEntity<String> updateDeposit(@RequestBody Deposit deposit) {
+        return ResponseEntity.ok().body(this.depositService.updateDeposit(deposit));
     }
 
     @DeleteMapping("/deposits/{depositId}")
-    public void deleteDeposit(@PathVariable String depositId) {
-        this.depositService.deleteDepositByID(Integer.parseInt(depositId));
+    public ResponseEntity<String> deleteCategory(@PathVariable String depositId) {
+        return ResponseEntity.ok().body(this.depositService.deleteDepositByID(Integer.parseInt(depositId)));
     }
 }

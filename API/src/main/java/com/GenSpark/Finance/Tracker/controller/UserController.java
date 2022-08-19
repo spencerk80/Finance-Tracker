@@ -6,6 +6,7 @@ import com.GenSpark.Finance.Tracker.enums.UserRole;
 import com.GenSpark.Finance.Tracker.service.UserService;
 import com.GenSpark.Finance.Tracker.util.JWT;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -28,12 +29,12 @@ public class UserController {
     }
 
     @GetMapping("/users/{userID}")
-    public User getUser(@PathVariable String userID) {
-        return this.userService.getUserByID(Integer.parseInt(userID));
+    public ResponseEntity<User> getUser(@PathVariable String userID) {
+        return ResponseEntity.ok().body(this.userService.getUserByID(Integer.parseInt(userID)));
     }
 
     @PostMapping("/users")
-    public void saveUser(@RequestBody User user) {
+    public ResponseEntity<String> saveUser(@RequestBody User user) {
         try {
             this.userService.saveUser(user);
         } catch(SQLIntegrityConstraintViolationException e) {
@@ -60,12 +61,12 @@ public class UserController {
     }
 
     @PutMapping("/users")
-    public void updateUser(@RequestBody User user) {
-        this.userService.updateUser(user);
+    public ResponseEntity<String> updateDeposit(@RequestBody User user) {
+        return ResponseEntity.ok().body(this.userService.updateUser(user));
     }
 
     @DeleteMapping("/users/{userID}")
-    public void deleteUser(@PathVariable String userID) {
-        this.userService.deleteUserByID(Integer.parseInt(userID));
+    public ResponseEntity<String> deleteCategory(@PathVariable String userID) {
+        return ResponseEntity.ok().body(this.userService.deleteUserByID(Integer.parseInt(userID)));
     }
 }

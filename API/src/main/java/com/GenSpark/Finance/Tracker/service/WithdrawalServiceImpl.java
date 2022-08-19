@@ -9,10 +9,8 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.PersistenceException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class WithdrawalServiceImpl implements WithdrawalService{
@@ -24,31 +22,33 @@ public class WithdrawalServiceImpl implements WithdrawalService{
     }
 
     @Override
+    public Withdrawal getWithdrawalByID(int withdrawalID) {
+        return withdrawalDao.findById(withdrawalID).orElseThrow(() -> new ResourceNotFoundException("No Withdrawal Found With Id: " + withdrawalID));
+    }
+
+    @Override
+    public String saveWithdrawal(Withdrawal withdrawal) {
+        withdrawalDao.save(withdrawal);
+        return "Successfully added the category";
+    }
+
+    @Override
+    public String updateWithdrawal(Withdrawal withdrawal) {
+        withdrawalDao.save(withdrawal);
+        return "Successfully updated the category";
+    }
+
+    @Override
+    public String deleteWithdrawalByID(int withdrawalID) {
+        withdrawalDao.deleteById(withdrawalID);
+        return "Successfully deleted the category";
+    }
+
+    @Override
     public List<Withdrawal> getAll(int pageNo, int pageSize) {
         Page<Withdrawal> pagedResult = withdrawalDao.findAll(PageRequest.of(pageNo, pageSize));
         if (pagedResult != null && pagedResult.hasContent()) return pagedResult.toList();
         else return new ArrayList<>();
-    }
-
-    @Override
-    public void saveWithdrawal(Withdrawal withdrawal) {
-        withdrawalDao.save(withdrawal);
-    }
-
-    @Override
-    public Withdrawal getWithdrawalByID(int withdrawalID) {
-        return withdrawalDao.findById(withdrawalID).orElseThrow(() -> new ResourceNotFoundException("No Withdrawal Found With Id: " + withdrawalID));
-
-    }
-
-    @Override
-    public void updateWithdrawal(Withdrawal withdrawal) {
-        withdrawalDao.save(withdrawal);
-    }
-
-    @Override
-    public void deleteWithdrawalByID(int withdrawalID) {
-        withdrawalDao.deleteById(withdrawalID);
     }
 
     @Override

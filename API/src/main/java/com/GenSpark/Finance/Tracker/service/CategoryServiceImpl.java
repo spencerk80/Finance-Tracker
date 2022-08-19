@@ -7,10 +7,10 @@ import com.GenSpark.Finance.Tracker.exceptions.ResourceNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -22,15 +22,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<Category> getAll(int pageNo, int pageSize) {
-        Page<Category> pagedResult = categoryDao.findAll(PageRequest.of(pageNo, pageSize));
-        if (pagedResult.hasContent() && pagedResult != null) return pagedResult.toList();
-        else return new ArrayList<>();
-    }
-
-    @Override
-    public void saveCategory(Category category) {
-        categoryDao.save(category);
+    public List<Category> getCategories() {
+        return categoryDao.findAll();
     }
 
     @Override
@@ -39,17 +32,33 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void updateCategory(Category category) {
-        categoryDao.save(category);
-    }
-
-    @Override
-    public void deleteCategoryByName(String name) {
-        categoryDao.deleteByName(name);
-    }
-
-    @Override
     public List<Category> getAllByType(CategoryType type) {
         return categoryDao.findAllByCategoryType(type.toString());
+    }
+
+    @Override
+    public String saveCategory(Category category) {
+        categoryDao.save(category);
+        return "Successfully added the category";
+    }
+
+    @Override
+    public String updateCategory(Category category) {
+        categoryDao.save(category);
+        return "Successfully updated the category";
+    }
+
+    @Override
+    @Transactional
+    public String deleteCategoryByName(String name) {
+        categoryDao.deleteByName(name);
+        return "Successfully deleted the category";
+    }
+
+    @Override
+    public List<Category> getAll(int pageNo, int pageSize) {
+        Page<Category> pagedResult = categoryDao.findAll(PageRequest.of(pageNo, pageSize));
+        if (pagedResult.hasContent() && pagedResult != null) return pagedResult.toList();
+        else return new ArrayList<>();
     }
 }
