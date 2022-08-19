@@ -24,17 +24,17 @@ const Navbar = () => {
           <ul className="flex items-center text-white">
             <li>
               <Link to="HowItWorks" spy={true} smooth={true} duration={500}>
-                How It Works
+                <RouterLink to="/">How It Works</RouterLink>
               </Link>
             </li>
             <li>
               <Link to="TheMission" spy={true} smooth={true} duration={500}>
-                The Mission
+                <RouterLink to="/">The Mission</RouterLink>
               </Link>
             </li>
             <li>
               <Link to="TheTeam" spy={true} smooth={true} duration={500}>
-                The Team
+                <RouterLink to="/">The Team</RouterLink>
               </Link>
             </li>
             <li>

@@ -2,8 +2,8 @@ import React from "react";
 import Home from "./pages/Home/Home";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
-import Login from "./pages/Login/Login";
-import Register from "./pages/Register/Register";
+import Login from "./components/LoginForm/LoginForm";
+import Register from "./components/RegisterForm/RegisterForm";
 
 import {
   Route,

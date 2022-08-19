@@ -4,7 +4,7 @@ import { Link } from "react-scroll";
 
 const Footer = () => {
   return (
-    <footer className="w-full min-h-[300px] bg-brand text-white flex flex-col justify-center items-center">
+    <footer className="w-full md:min-h-[300px] bg-brand text-white flex flex-col justify-center items-center pb-4 md:pb-0">
       <div className="container overflow-hidden flex flex-col md:flex-row items-center justify-center text-center">
         <h1 className="m-8 cursor-pointer">
           <Link to="navbar" spy={true} smooth={true} duration={500}>
