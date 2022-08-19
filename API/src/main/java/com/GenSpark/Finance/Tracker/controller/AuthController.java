@@ -5,6 +5,7 @@ import com.GenSpark.Finance.Tracker.entity.AuthenticationResponse;
 import com.GenSpark.Finance.Tracker.security.UserDetailsService;
 import com.GenSpark.Finance.Tracker.util.JWT;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -12,6 +13,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -26,7 +28,7 @@ public class AuthController {
         this.userDetailsService = userDetailsService;
     }
 
-    @PostMapping("/authenticate")
+    @PostMapping("/auth/login")
     public ResponseEntity<AuthenticationResponse> authUser(@RequestBody AuthenticationRequest authRequest) {
         UserDetails userDetails;
         AuthenticationResponse response = new AuthenticationResponse();
@@ -45,4 +47,10 @@ public class AuthController {
         return ResponseEntity.ok(response);
     }
 
+    @PostMapping("/auth/logout")
+    public ResponseEntity<String> logout(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt) {
+        JWT.blacklistJwt(jwt);
+
+        return ResponseEntity.ok().body("Bye-bye");
+    }
 }

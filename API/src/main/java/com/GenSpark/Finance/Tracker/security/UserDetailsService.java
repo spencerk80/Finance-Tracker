@@ -20,7 +20,7 @@ import java.util.List;
 @EnableWebSecurity
 public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
 
-    private UserDao userDao;
+    private final UserDao userDao;
 
     @Autowired
     public UserDetailsService(UserDao dao) {
@@ -30,9 +30,12 @@ public class UserDetailsService implements org.springframework.security.core.use
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user;
-        com.GenSpark.Finance.Tracker.entity.User userFromDB = userDao.findUserByEmail(email).get();
+        com.GenSpark.Finance.Tracker.entity.User userFromDB;
         List<GrantedAuthority> roles = new ArrayList<>();
 
+        if(userDao.findUserByEmail(email).isEmpty()) throw new UsernameNotFoundException("User not found");
+
+        userFromDB = userDao.findUserByEmail(email).get();
         roles.add(new SimpleGrantedAuthority(userFromDB.getRole().toString()));
         user = new User(userFromDB.getEmail(), userFromDB.getPassword(), roles);
 
@@ -41,11 +44,9 @@ public class UserDetailsService implements org.springframework.security.core.use
 
     @Bean
     public PasswordEncoder getPasswordEncoder() {
-//        final int       strength    = 10;
-//        SecureRandom    salt        = new SecureRandom();
-//
-//        return new BCryptPasswordEncoder(strength, salt);
+        final int    strength    = 10;
+        SecureRandom salt        = new SecureRandom();
 
-        return NoOpPasswordEncoder.getInstance();
+        return new BCryptPasswordEncoder(strength, salt);
     }
 }

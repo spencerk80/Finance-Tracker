@@ -9,6 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -30,7 +31,7 @@ class UserServiceImplTest {
     private User user;
 
     @Test
-    void saveUser() {
+    void saveUser() throws SQLIntegrityConstraintViolationException {
         userService.saveUser(new User("pass123", "John", "Doe", "j.doe@gmail.com", UserRole.USER, true));
         verify(userDao, times(1)).save(new User("pass123", "John", "Doe", "j.doe@gmail.com", UserRole.USER, true));
     }

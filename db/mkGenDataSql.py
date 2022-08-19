@@ -6,7 +6,7 @@ from datetime import timedelta
 fnames = ['Bob', 'Terry', 'Sarah', 'Jenny']
 lnames = ['Smith', 'Prime', 'Conner', 'Baker']
 emails = ['b.smith@email.com', 't.prime@email.com', 's.conner@email.com', 'j.baker@email.com']
-passwords = ['oa8ufd98w32kna;ufw8hnd', 'oa8ufd98w32kna;ufw8hnd', 'oa8ufd98w32kna;ufw8hnd', 'oa8ufd98w32kna;ufw8hnd']
+passwords = ['$2a$10$P.QxV9.QTpxpmoZavv3So.Rd6jg9eu7ZfPmaC9v0Xeo2WqKBrc6z2', '$2a$10$P.QxV9.QTpxpmoZavv3So.Rd6jg9eu7ZfPmaC9v0Xeo2WqKBrc6z2', '$2a$10$P.QxV9.QTpxpmoZavv3So.Rd6jg9eu7ZfPmaC9v0Xeo2WqKBrc6z2', '$2a$10$P.QxV9.QTpxpmoZavv3So.Rd6jg9eu7ZfPmaC9v0Xeo2WqKBrc6z2']
 roles = ['USER', 'USER', 'USER', 'USER']
 verified = 1
 

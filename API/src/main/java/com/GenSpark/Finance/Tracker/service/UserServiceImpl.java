@@ -5,6 +5,7 @@ import com.GenSpark.Finance.Tracker.entity.User;
 import com.GenSpark.Finance.Tracker.exceptions.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Optional;
 
 @Service
@@ -17,7 +18,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveUser(User user) {
+    public void saveUser(User user) throws SQLIntegrityConstraintViolationException {
         userDao.save(user);
     }
 

@@ -17,7 +17,7 @@ import java.io.IOException;
 
 @Component
 public class JwtFilter extends OncePerRequestFilter {
-    private UserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
 
     @Autowired
     public JwtFilter(UserDetailsService userDetailsService) {
@@ -27,13 +27,23 @@ public class JwtFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
-        final String    authorizatioonHeader    = request.getHeader("Authorization");
+        final String    authorizationHeader    = request.getHeader("Authorization");
         String          jwt                     = null,
                         email                   = null;
 
-        if(authorizatioonHeader != null && authorizatioonHeader.startsWith("Bearer "))
-            jwt = authorizatioonHeader.substring(7);
+        //Do NOT try to authenticate these endpoints. Causes 500 if tried
+        if(
+                "/authenticate".matches(request.getRequestURI())
+                || "/user/register".matches(request.getRequestURI())
+        ) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        if(authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+            jwt = authorizationHeader.substring(7);
             email = JWT.getUserEmail(jwt);
+        }
 
         if(email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(email);
