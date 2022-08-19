@@ -1,5 +1,6 @@
-import HappyPerson from "/home/jack/Documents/web-projects/Finance-Tracker/react-app/src/assets/HappyPerson.png";
-import Jack from "/home/jack/Documents/web-projects/Finance-Tracker/react-app/src/assets/JackPic.jpg";
+import HappyPerson from "../../assets/HappyPerson.png";
+import Jack from "../../assets/JackPic.jpg";
+import Kris from "../../assets/KrisPic.jpg";
 
 const TheTeam = () => {
   return (
@@ -28,9 +29,9 @@ const TheTeam = () => {
         </div>
         <div className="w-full sm:w-1/2 md:w-1/3 flex flex-col items-center justify-center p-4">
           <div className="w-[250px] h-[250px] m-4">
-            <img src={HappyPerson} alt="HappyPerson" className="rounded-full" />
+            <img src={Kris} alt="Kris" className="rounded-full" />
           </div>
-          <h1 className="m-4 text-brand text-2xl">Miguel</h1>
+          <h1 className="m-4 text-brand text-2xl">Kris</h1>
           <p className="leading-normal mb-4">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -40,7 +41,7 @@ const TheTeam = () => {
           <div className="w-[250px] h-[250px] m-4">
             <img src={HappyPerson} alt="HappyPerson" className="rounded-full" />
           </div>
-          <h1 className="m-4 text-brand text-2xl">Kris</h1>
+          <h1 className="m-4 text-brand text-2xl">Miguel</h1>
           <p className="leading-normal mb-4">
             Morbi in sem quis dui placerat ornare. Pellentesque odio nisi,
             euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras

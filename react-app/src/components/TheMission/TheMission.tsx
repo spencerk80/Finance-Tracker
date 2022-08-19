@@ -1,4 +1,4 @@
-import HappyPerson from "/home/jack/Documents/web-projects/Finance-Tracker/react-app/src/assets/HappyPerson.png";
+import HappyPerson from "../../assets/HappyPerson.png";
 
 const TheMission = () => {
   return (

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { Link } from "react-scroll";
+import { Route, Routes, Link as RouterLink } from "react-router-dom";
 
 const Navbar = () => {
   const [nav, setNav] = useState<boolean>(false);
@@ -15,7 +16,9 @@ const Navbar = () => {
     >
       <div className="max-w-auto mx-auto px-4 flex justify-between items-center h-full">
         <div>
-          <h1 className="text-white cursor-default">Budget Buddy</h1>
+          <h1 className="text-white cursor-default">
+            <RouterLink to="/">Budget Buddy</RouterLink>
+          </h1>
         </div>
         <div className="hidden md:flex">
           <ul className="flex items-center text-white">
@@ -25,18 +28,24 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              {" "}
               <Link to="TheMission" spy={true} smooth={true} duration={500}>
-                The Mission{" "}
+                The Mission
               </Link>
             </li>
             <li>
-              {" "}
               <Link to="TheTeam" spy={true} smooth={true} duration={500}>
                 The Team
               </Link>
             </li>
-            <li>Login</li>
+            <li>
+              <RouterLink to="/login">Login</RouterLink>
+            </li>
+            <li>
+              <RouterLink to="/register">Register</RouterLink>
+            </li>
+            <li>
+              <RouterLink to="../../pages/Dashboard">Dashboard</RouterLink>
+            </li>
           </ul>
         </div>
 

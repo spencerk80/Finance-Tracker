@@ -33,4 +33,8 @@
   a {
     @apply cursor-pointer;
   }
+
+  form {
+    @apply flex flex-col justify-evenly flex-grow p-4 bg-brand-light text-white text-brand md:min-w-[80%] md:min-h-[80%];
+  }
 }

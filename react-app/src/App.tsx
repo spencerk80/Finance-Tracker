@@ -1,21 +1,27 @@
 import React from "react";
-import Hero from "./components/Hero/Hero";
+import Home from "./pages/Home/Home";
 import Navbar from "./components/Navbar/Navbar";
-import HowItWorks from "./components/HowItWorks/HowItWorks";
-import TheMission from "./components/TheMission/TheMission";
-import TheTeam from "./components/TheTeam/TheTeam";
-import CallToAction from "./components/CallToAction/CallToAction";
 import Footer from "./components/Footer/Footer";
+import Login from "./pages/Login/Login";
+import Register from "./pages/Register/Register";
+
+import {
+  Route,
+  Routes,
+  Link as RouterLink,
+  BrowserRouter,
+  Router,
+} from "react-router-dom";
 
 function App() {
   return (
     <div>
-      <Navbar />;
-      <Hero />
-      <HowItWorks />
-      <TheMission />
-      <TheTeam />
-      <CallToAction />
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
       <Footer />
     </div>
   );
