@@ -7,10 +7,13 @@ import java.util.List;
 
 public interface CategoryService {
 
-    List<Category> getAll(int pageNo, int pageSize);
-    void saveCategory(Category category);
     Category getCategoryByName(String name);
-    void updateCategory(Category category);
-    void deleteCategoryByName(String name);
+    List<Category> getCategories();
     List<Category> getAllByType(CategoryType type);
+    String saveCategory(Category category);
+    String updateCategory(Category category);
+    String deleteCategoryByName(String name);
+
+    //Unused for now
+    List<Category> getAll(int pageNo, int pageSize);
 }

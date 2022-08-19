@@ -17,23 +17,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveUser(User user) {
-        userDao.save(user);
-    }
-
-    @Override
     public User getUserByID(int userID) {
         return userDao.findById(userID).orElseThrow(() -> new ResourceNotFoundException("No User Found With Id: " + userID));
     }
 
     @Override
-    public void updateUser(User user) {
+    public String saveUser(User user) {
         userDao.save(user);
+        return "Successfully added the category";
     }
 
     @Override
-    public void deleteUserByID(int userID) {
+    public String updateUser(User user) {
+        userDao.save(user);
+        return "Successfully updated the category";
+    }
+
+    @Override
+    public String deleteUserByID(int userID) {
         userDao.deleteById(userID);
+        return "Successfully deleted the category";
     }
 
     @Override
