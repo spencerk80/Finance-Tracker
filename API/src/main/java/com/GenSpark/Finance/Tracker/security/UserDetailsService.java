@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.security.SecureRandom;
@@ -29,7 +28,7 @@ public class UserDetailsService implements org.springframework.security.core.use
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user;
+        UserDetails user;
         com.GenSpark.Finance.Tracker.entity.User userFromDB;
         List<GrantedAuthority> roles = new ArrayList<>();
 
@@ -37,7 +36,11 @@ public class UserDetailsService implements org.springframework.security.core.use
 
         userFromDB = userDao.findUserByEmail(email).get();
         roles.add(new SimpleGrantedAuthority(userFromDB.getRole().toString()));
-        user = new User(userFromDB.getEmail(), userFromDB.getPassword(), roles);
+        user = User.withUsername(userFromDB.getEmail())
+                .password(userFromDB.getPassword())
+                .authorities(roles)
+                .disabled( ! userFromDB.isVerified())
+                .build();
 
         return user;
     }

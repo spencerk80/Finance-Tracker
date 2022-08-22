@@ -1,24 +1,30 @@
 package com.GenSpark.Finance.Tracker.util;
 
 import io.jsonwebtoken.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 import java.security.Key;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Component
 public class JWT {
-    //Normally this would be read from some source and not hard coded
-    private static final String secretKey = "Kg8808o$cgLEKPxsUjrSNjiAkKt9oMq7Kg8808o$cgLEKPxsUjrSNjiAkKt9oMq7";
+
+    private final String secretKey;
     private static final List<String> blacklist = new ArrayList<>();
 
-    public static String createJWT(UserDetails userDetails) {
+    public JWT(@Value("${jwt.key}") String key) {
+        this.secretKey = key;
+    }
+
+    public String createJWT(UserDetails userDetails) {
         LocalDateTime   iat         = LocalDateTime.now();
         LocalDateTime   exp         = iat.plusDays(1);
         byte[]          keyBytes    = DatatypeConverter.parseBase64Binary(secretKey);
@@ -34,7 +40,7 @@ public class JWT {
         return jwtBuilder.compact();
     }
 
-    public static String getUserEmail(String jwt) {
+    public String getUserEmail(String jwt) {
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(DatatypeConverter.parseBase64Binary(secretKey))
                 .build()
@@ -44,7 +50,7 @@ public class JWT {
         return (String) claims.get("email");
     }
 
-    public static String getUserRole(String jwt) {
+    public String getUserRole(String jwt) {
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(DatatypeConverter.parseBase64Binary(secretKey))
                 .build()
@@ -54,7 +60,7 @@ public class JWT {
         return (String) claims.get("role");
     }
 
-    public static LocalDateTime getJwtExpiration(String jwt) {
+    public LocalDateTime getJwtExpiration(String jwt) {
         return Jwts.parserBuilder()
                 .setSigningKey(DatatypeConverter.parseBase64Binary(secretKey))
                 .build()
@@ -64,7 +70,7 @@ public class JWT {
                 .toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
     }
 
-    public static boolean validateJwt(String jwt, UserDetails userDetails) {
+    public boolean validateJwt(String jwt, UserDetails userDetails) {
         Claims claims;
 
         try {
@@ -84,11 +90,11 @@ public class JWT {
         return ! claims.getExpiration().before(new Date());
     }
 
-    public static boolean jwtIsBlacklisted(String jwt) {
+    public boolean jwtIsBlacklisted(String jwt) {
         return blacklist.contains(jwt);
     }
 
-    public static void blacklistJwt(String jwt) {
+    public void blacklistJwt(String jwt) {
         blacklist.add(jwt);
 
         //Clean up the blacklist on a separate thread
@@ -96,7 +102,7 @@ public class JWT {
             LocalDateTime now = LocalDateTime.now();
 
             blacklist.forEach(token -> {
-                if(JWT.getJwtExpiration(token).isBefore(now))
+                if(getJwtExpiration(token).isBefore(now))
                     blacklist.remove(token);
             });
         });
