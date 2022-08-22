@@ -33,7 +33,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
         //Do NOT try to authenticate these endpoints. Causes 500 if tried
         if(
-                "/authenticate".matches(request.getRequestURI())
+                "/auth/login".matches(request.getRequestURI())
                 || "/user/register".matches(request.getRequestURI())
         ) {
             filterChain.doFilter(request, response);

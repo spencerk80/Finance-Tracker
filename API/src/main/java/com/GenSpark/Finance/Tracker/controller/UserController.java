@@ -35,11 +35,7 @@ public class UserController {
 
     @PostMapping("/users")
     public ResponseEntity<String> saveUser(@RequestBody User user) {
-        try {
-            this.userService.saveUser(user);
-        } catch(SQLIntegrityConstraintViolationException e) {
-
-        }
+            return ResponseEntity.ok().body(this.userService.saveUser(user));
     }
 
     @PostMapping("/users/register")
@@ -51,11 +47,7 @@ public class UserController {
                 user.getLname(), user.getEmail(), UserRole.USER, false
         );
 
-        try {
             userService.saveUser(validUser);
-        } catch(SQLIntegrityConstraintViolationException e) {
-            return ResponseEntity.badRequest().body("Duplicate data");
-        }
 
         return ResponseEntity.created(new URI("/users/register")).body("");
     }
