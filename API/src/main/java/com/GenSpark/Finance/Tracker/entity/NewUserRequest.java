@@ -61,7 +61,7 @@ public class NewUserRequest {
         if("".equals(lname)) return false;
         //Requires the presence of at least one lower, one upper and one digit. Symbols allowed:
         //!@#$%^&*()_+-='";:,<.>\/?
-        if( ! password.matches("^(?=.+[a-z])(?=.+[A-Z])(?=.+\\d)[a-zA-Z\\d!@#$%^&*()_+-='\";:,<.>\\/?]{8,32}$"))
+        if( ! password.matches("(?=.+[a-z])(?=.+[A-Z])(?=.+\\d)[a-zA-Z\\d!@#$%^&*()_+-='\";:,<.>\\/?]{8,32}"))
             return false;
 
         return password.equals(passwordConfirm);
