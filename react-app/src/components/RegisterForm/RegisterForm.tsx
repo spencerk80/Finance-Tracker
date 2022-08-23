@@ -7,9 +7,9 @@ import { ServerResponse } from "http";
 const EMAIL_REGEX =
   /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,30}))$/;
 const PWD_REGEX =
-  /^(?=.+[a-z])(?=.+[A-Z])(?=.+\d)[a-zA-Z\d!@#$%^&*()_+-='";:,<.>\\?]{8,32}$/;
+  /^(?=.+[a-z])(?=.+[A-Z])(?=.+\d)[a-zA-Z\d!@#$%^&*()_+-='";:,<.>\\/?]{8,32}$/;
 const NAME_REGEX = /^[ a-zA-Z\-\’]+$/;
-const REGISTER_URL = "localhost:8080/users/register";
+const REGISTER_URL = "http://localhost:8080/users/register";
 
 const Register = () => {
   const emailRef = useRef<HTMLInputElement>(null);
@@ -31,7 +31,7 @@ const Register = () => {
   const [validPwd, setValidPwd] = useState(false);
   const [passwordFocus, setPwdFocus] = useState(false);
 
-  const [matchPwd, setMatchPwd] = useState("");
+  const [passwordConfirm, setMatchPwd] = useState("");
   const [validMatch, setValidMatch] = useState(false);
   const [matchFocus, setMatchFocus] = useState(false);
 
@@ -44,45 +44,37 @@ const Register = () => {
 
   useEffect(() => {
     const result = EMAIL_REGEX.test(email);
-    console.log(result);
-    console.log(email);
     setValidEmail(result);
   }, [email]);
 
   useEffect(() => {
     const result = NAME_REGEX.test(fName);
-    console.log(result);
-    console.log(fName);
     setValidFName(result);
   }, [fName]);
 
   useEffect(() => {
     const result = NAME_REGEX.test(lName);
-    console.log(result);
-    console.log(lName);
     setValidLName(result);
   }, [lName]);
 
   useEffect(() => {
     const result = PWD_REGEX.test(password);
-    console.log(result);
-    console.log(password);
     setValidPwd(result);
-    const match = password === matchPwd;
+    const match = password === passwordConfirm;
     setValidMatch(match);
-  }, [password, matchPwd]);
+  }, [password, passwordConfirm]);
 
   useEffect(() => {
     setErrMsg("");
-  }, [email, password, matchPwd]);
+  }, [email, password, passwordConfirm]);
 
-  type CreateUserResponse = {
+  interface CreateUserResponse {
     email: string;
     password: string;
-    fName: string;
-    lName: string;
-    matchPwd: string;
-  };
+    fname: string;
+    lname: string;
+    passwordConfirm: string;
+  }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -96,7 +88,13 @@ const Register = () => {
     try {
       const { data } = await axios.post<CreateUserResponse>(
         REGISTER_URL,
-        JSON.stringify({ email, password, fName, lName, matchPwd }),
+        JSON.stringify({
+          email: email,
+          password: password,
+          fname: fName,
+          lname: lName,
+          passwordConfirm: passwordConfirm,
+        }),
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
@@ -114,8 +112,8 @@ const Register = () => {
       setMatchPwd("");
     } catch (err) {
       if (axios.isAxiosError(err)) {
-        console.log(err.message);
-        return err.message;
+        console.log(err.cause);
+        console.log(err.response?.data);
       } else {
         setErrMsg("Registration Failed");
       }
@@ -133,8 +131,8 @@ const Register = () => {
           </p>
         </section>
       ) : (
-        <div className="flex flex-col justify-center items-center min-h-[83vh]">
-          <section className="lg:min-w-[20%] lg:min-h-[20%] bg-brand-light text-brand flex flex-col justify-center items-center p-2 rounded-xl">
+        <div className="flex flex-col justify-center items-center h-[1100px]">
+          <section className="lg:min-w-[20%] lg:min-h-[20%] h-[1000px] bg-brand-light text-brand flex flex-col justify-center items-center p-2 rounded-xl">
             <p
               ref={errRef}
               className={
@@ -236,7 +234,9 @@ const Register = () => {
                 />
                 <FaTimes
                   className={
-                    validMatch || !matchPwd ? "hidden" : "text-danger m-1"
+                    validMatch || !passwordConfirm
+                      ? "hidden"
+                      : "text-danger m-1"
                   }
                 />
               </label>
@@ -244,7 +244,7 @@ const Register = () => {
                 type="password"
                 id="confirm_password"
                 onChange={(e) => setMatchPwd(e.target.value)}
-                value={matchPwd}
+                value={passwordConfirm}
                 required
                 onFocus={() => setMatchFocus(true)}
                 onBlur={() => setMatchFocus(false)}
@@ -263,12 +263,12 @@ const Register = () => {
               >
                 Sign Up
               </button>
-              <p>
+              <p className="mb-4">
                 Already registered?
                 <br />
                 <span className="">
                   {/*put router link here*/}
-                  <RouterLink to="/login">Sign In</RouterLink>
+                  <RouterLink to="/login">Login</RouterLink>
                 </span>
               </p>
             </form>
