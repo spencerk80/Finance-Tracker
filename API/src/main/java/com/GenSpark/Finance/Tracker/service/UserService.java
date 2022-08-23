@@ -11,4 +11,5 @@ public interface UserService {
     String saveUser(User user);
     String updateUser(User user);
     String deleteUserByID(int userID);
+    void sendRegConfEmail(User user);
 }

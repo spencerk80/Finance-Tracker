@@ -4,6 +4,7 @@ import com.GenSpark.Finance.Tracker.enums.UserRole;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class User {
@@ -25,15 +26,22 @@ public class User {
     @Column(nullable = false)
     private boolean verified;
 
+    @OneToMany
+    private Set<EmailVerToken> tokens;
+
     public User() {}
 
-    public User(String password, String fName, String lName, String email, UserRole role, boolean verified) {
+    public User(
+            String password, String fName, String lName, String email, UserRole role, boolean verified,
+            Set<EmailVerToken> tokens
+    ) {
         this.password = password;
         this.fName = fName;
         this.lName = lName;
         this.email = email;
         this.role = role;
         this.verified = verified;
+        this.tokens = tokens;
     }
 
     public int getUserID() {
@@ -86,6 +94,14 @@ public class User {
 
     public void setVerified(boolean verified) {
         this.verified = verified;
+    }
+
+    public Set<EmailVerToken> getTokens() {
+        return tokens;
+    }
+
+    public void setTokens(Set<EmailVerToken> tokens) {
+        this.tokens = tokens;
     }
 
     @Override
