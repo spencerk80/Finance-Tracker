@@ -27,12 +27,14 @@ public class JwtTest {
 
     private final String    userEmail = "b.smith@email.com",
                             userRole = "[USER]";
-    private String jwt;
+    private JWT JWT;
+    private String jwtStr;
 
     @Autowired
-    public JwtTest(UserDao dao) {
+    public JwtTest(UserDao dao, JWT jwt) {
         userDao = dao;
         userDetailsService = new UserDetailsService(dao);
+        this.JWT = jwt;
     }
 
     @BeforeAll
@@ -40,28 +42,28 @@ public class JwtTest {
         userDetails = userDetailsService.loadUserByUsername(userEmail);
 
         if(userDetails == null) throw new UsernameNotFoundException("Database data not pre-loaded");
-        jwt = JWT.createJWT(userDetails);
+        jwtStr = JWT.createJWT(userDetails);
     }
 
     @Test
     public void createJwt() {
         //Matches a JWT pattern
-        assertTrue(jwt.matches("^[\\da-zA-z_-]+.\\.[\\da-zA-z_-]+\\.[\\da-zA-z_-]+$"));
+        assertTrue(jwtStr.matches("^[\\da-zA-z_-]+.\\.[\\da-zA-z_-]+\\.[\\da-zA-z_-]+$"));
     }
 
     @Test
     public void getUserEmail() {
-        assertEquals(userEmail, JWT.getUserEmail(jwt));
+        assertEquals(userEmail, JWT.getUserEmail(jwtStr));
     }
 
     @Test
     public void getUserRole() {
-        assertEquals(userRole, JWT.getUserRole(jwt));
+        assertEquals(userRole, JWT.getUserRole(jwtStr));
     }
 
     @Test
     public void getExp() {
-        LocalDateTime exp           = JWT.getJwtExpiration(jwt);
+        LocalDateTime exp           = JWT.getJwtExpiration(jwtStr);
         LocalDateTime oneDayBefore  = LocalDateTime.now().minusDays(1);
         LocalDateTime oneDayAfter   = LocalDateTime.now().plusDays(2);
 
@@ -70,11 +72,11 @@ public class JwtTest {
 
     @Test
     public void validateJWT() {
-        char charToMod = jwt.charAt(40);
+        char charToMod = jwtStr.charAt(40);
         //Replace the char at index 40 with the letter 'a', unless it happens to be that already, then 'b'
-        String modifiedJwt = jwt.substring(0, 40) + (charToMod == 'a' ? 'b' : 'a') + jwt.substring(41);
+        String modifiedJwt = jwtStr.substring(0, 40) + (charToMod == 'a' ? 'b' : 'a') + jwtStr.substring(41);
 
-        assertTrue(JWT.validateJwt(jwt, userDetails));
+        assertTrue(JWT.validateJwt(jwtStr, userDetails));
         assertFalse(JWT.validateJwt(modifiedJwt, userDetails));
     }
 
@@ -83,9 +85,9 @@ public class JwtTest {
     public void z_blacklistJwt() {
         String newJwt;
 
-        assertTrue(JWT.validateJwt(jwt, userDetails));
-        JWT.blacklistJwt(jwt);
-        assertFalse(JWT.validateJwt(jwt, userDetails));
+        assertTrue(JWT.validateJwt(jwtStr, userDetails));
+        JWT.blacklistJwt(jwtStr);
+        assertFalse(JWT.validateJwt(jwtStr, userDetails));
 
         newJwt = JWT.createJWT(userDetails);
         assertTrue(JWT.validateJwt(newJwt, userDetails));
