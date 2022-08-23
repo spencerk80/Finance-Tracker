@@ -1,10 +1,15 @@
 package com.GenSpark.Finance.Tracker.email;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class VerificationEmailContext {
     private String url, token, to, from, subject;
     private Map<String, Object> context;
+
+    public VerificationEmailContext() {
+        context = new HashMap<>();
+    }
 
     public String getTo() {
         return to;
