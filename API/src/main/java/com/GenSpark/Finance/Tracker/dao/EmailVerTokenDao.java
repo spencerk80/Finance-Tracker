@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EmailVerTokenDao extends JpaRepository<EmailVerToken, Long> {
     EmailVerToken findByToken(final String token);
-    void removeByTokenStr(final String token);
+    void removeByToken(final String token);
 }

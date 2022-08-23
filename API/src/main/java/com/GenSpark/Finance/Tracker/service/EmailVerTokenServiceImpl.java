@@ -58,6 +58,6 @@ public class EmailVerTokenServiceImpl implements EmailVerTokenService {
 
     @Override
     public void removeToken(String token) {
-        emailVerTokenDao.removeByTokenStr(token);
+        emailVerTokenDao.removeByToken(token);
     }
 }

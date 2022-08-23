@@ -40,15 +40,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String saveUser(User user) {
+    public String saveUser(User user) throws MessagingException {
         userDao.save(user);
-        return "Successfully added the category";
+
+        sendRegConfEmail(user);
+        return "Successfully added user";
     }
 
     @Override
     public String updateUser(User user) {
         userDao.save(user);
-        return "Successfully updated the category";
+        return "Successfully updated the user";
     }
 
     @Override
@@ -58,7 +60,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void sendRegConfEmail(User user) {
+    public void sendRegConfEmail(User user) throws MessagingException {
         EmailVerToken token = emailVerTokenService.createToken();
         VerificationEmailContext context = new VerificationEmailContext();
 
@@ -70,11 +72,7 @@ public class UserServiceImpl implements UserService {
         context.setFrom(from);
         context.setSubject("Finish your account set up!");
 
-        try {
-            emailService.sendMail(context);
-        } catch(MessagingException e) {
-            e.printStackTrace(); //for now
-        }
+        emailService.sendMail(context);
     }
 
     @Override

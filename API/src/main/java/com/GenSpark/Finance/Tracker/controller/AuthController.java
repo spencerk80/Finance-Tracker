@@ -2,7 +2,11 @@ package com.GenSpark.Finance.Tracker.controller;
 
 import com.GenSpark.Finance.Tracker.entity.AuthenticationRequest;
 import com.GenSpark.Finance.Tracker.entity.AuthenticationResponse;
+import com.GenSpark.Finance.Tracker.entity.EmailVerToken;
+import com.GenSpark.Finance.Tracker.entity.User;
 import com.GenSpark.Finance.Tracker.security.UserDetailsService;
+import com.GenSpark.Finance.Tracker.service.EmailVerTokenService;
+import com.GenSpark.Finance.Tracker.service.UserService;
 import com.GenSpark.Finance.Tracker.util.JWT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -16,17 +20,26 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
+
 @RestController
 public class AuthController {
 
     private AuthenticationManager   authManager;
     private UserDetailsService      userDetailsService;
+    private EmailVerTokenService    emailVerTokenService;
+    private UserService             userService;
     private JWT                     JWT;
 
     @Autowired
-    public AuthController(AuthenticationManager authManager, UserDetailsService userDetailsService, JWT jwt) {
+    public AuthController(
+            AuthenticationManager authManager, UserDetailsService userDetailsService,
+            EmailVerTokenService emailVerTokenService, UserService userService, JWT jwt
+    ) {
         this.authManager = authManager;
         this.userDetailsService = userDetailsService;
+        this.emailVerTokenService = emailVerTokenService;
+        this.userService = userService;
         this.JWT = jwt;
     }
 
@@ -54,5 +67,19 @@ public class AuthController {
         JWT.blacklistJwt(jwt);
 
         return ResponseEntity.ok().body("Bye-bye");
+    }
+
+    @PostMapping("/auth/verify")
+    public void EmailVerifyLinkProcessing(@RequestBody String token) {
+        EmailVerToken   emailVerToken   = emailVerTokenService.findByTokenStr(token);
+        User            user            = emailVerToken.getUser();
+        LocalDateTime   now             = LocalDateTime.now();
+
+        //Token expired
+        if(emailVerToken.getExpiredAt().isBefore(now)) return;
+
+        user.setVerified(true);
+        userService.updateUser(user);
+        emailVerTokenService.removeToken(token);
     }
 }
