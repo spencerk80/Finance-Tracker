@@ -21,11 +21,6 @@ public class UserServiceImpl implements UserService {
     public User getUserByID(int userID) {
         return userDao.findById(userID).orElseThrow(() -> new ResourceNotFoundException("No User Found With Id: " + userID));
     }
-    
-    @Override
-    public void saveUser(User user) throws SQLIntegrityConstraintViolationException {
-        userDao.save(user);
-    }
 
     @Override
     public String saveUser(User user) {
