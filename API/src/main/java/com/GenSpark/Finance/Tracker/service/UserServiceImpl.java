@@ -5,7 +5,6 @@ import com.GenSpark.Finance.Tracker.entity.User;
 import com.GenSpark.Finance.Tracker.exceptions.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Optional;
 
 @Service

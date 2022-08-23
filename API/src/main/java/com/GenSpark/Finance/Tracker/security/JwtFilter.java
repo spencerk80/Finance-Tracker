@@ -18,10 +18,12 @@ import java.io.IOException;
 @Component
 public class JwtFilter extends OncePerRequestFilter {
     private final UserDetailsService userDetailsService;
+    private final JWT                JWT;
 
     @Autowired
-    public JwtFilter(UserDetailsService userDetailsService) {
+    public JwtFilter(UserDetailsService userDetailsService, JWT jwt) {
         this.userDetailsService = userDetailsService;
+        this.JWT = jwt;
     }
 
     @Override
@@ -31,9 +33,9 @@ public class JwtFilter extends OncePerRequestFilter {
         String          jwt                     = null,
                         email                   = null;
 
-        //Do NOT try to authenticate these endpoints. Causes 500 if tried
+        //Do NOT try to authenticate these endpoints. Causes 403 if tried
         if(
-                "/authenticate".matches(request.getRequestURI())
+                "/auth/login".matches(request.getRequestURI())
                 || "/user/register".matches(request.getRequestURI())
         ) {
             filterChain.doFilter(request, response);
