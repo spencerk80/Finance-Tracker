@@ -28,11 +28,12 @@ public class AuthController {
 
     @Autowired
     public AuthController(
-            AuthenticationManager authManager, UserDetailsService userDetailsService, UserService userService
+            AuthenticationManager authManager, UserDetailsService userDetailsService, UserService userService, JWT jwt
     ) {
         this.authManager = authManager;
         this.userDetailsService = userDetailsService;
         this.userService = userService;
+        this.JWT = jwt;
     }
 
     @PostMapping("/auth/login")
