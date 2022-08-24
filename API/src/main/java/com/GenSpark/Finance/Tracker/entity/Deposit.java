@@ -93,7 +93,7 @@ public class Deposit {
     @Override
     public String toString() {
         return "Deposit{" +
-                "depositeID=" + depositID +
+                "depositID=" + depositID +
                 ", category=" + category +
                 ", user=" + user +
                 ", amount=" + amount +

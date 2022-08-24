@@ -1,6 +1,7 @@
 package com.GenSpark.Finance.Tracker.entity;
 
 import com.GenSpark.Finance.Tracker.enums.UserRole;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -11,6 +12,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int userID;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(nullable = false)
     private String password;
     @Column(nullable = false)

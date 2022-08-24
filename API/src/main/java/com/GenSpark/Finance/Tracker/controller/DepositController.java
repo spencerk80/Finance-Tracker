@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class DepositController {
 
@@ -16,10 +18,10 @@ public class DepositController {
         this.depositService = depositService;
     }
 
-//    @GetMapping("/deposits")
-//    public ResponseEntity<List<Deposit>> getDeposits() {
-//        return ResponseEntity.ok().body(this.depositService.getDeposits(1, 1));
-//    }
+    @GetMapping("/deposits")
+    public ResponseEntity<List<Deposit>> getDeposits() {
+        return ResponseEntity.ok().body(this.depositService.getDeposits(1, 10));
+    }
 
     @GetMapping("/deposits/{depositID}")
     public ResponseEntity<Deposit> getDeposit(@PathVariable String depositID) {

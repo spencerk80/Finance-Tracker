@@ -47,7 +47,7 @@ public class WithdrawalServiceImpl implements WithdrawalService{
     @Override
     public List<Withdrawal> getAll(int pageNo, int pageSize) {
         Page<Withdrawal> pagedResult = withdrawalDao.findAll(PageRequest.of(pageNo, pageSize));
-        if (pagedResult != null && pagedResult.hasContent()) return pagedResult.toList();
+        if (pagedResult.hasContent()) return pagedResult.toList();
         else return new ArrayList<>();
     }
 
@@ -55,7 +55,7 @@ public class WithdrawalServiceImpl implements WithdrawalService{
     public List<Withdrawal> getPageOfWithdrawalsByUserID(int userID, int pageNo, int pageSize) {
         List<Withdrawal> withdrawalList = withdrawalDao.findAllByUserID(userID, pageNo, pageSize);
         Page<Withdrawal> pagedResult = new PageImpl<>(withdrawalList);
-        if (pagedResult != null && pagedResult.hasContent()) return pagedResult.toList();
+        if (pagedResult.hasContent()) return pagedResult.toList();
         else return new ArrayList<>();
     }
 
@@ -63,7 +63,7 @@ public class WithdrawalServiceImpl implements WithdrawalService{
     public List<Withdrawal> getPageOfWithdrawalsByUserIdAndCatID(int userID, int catID, int pageNo, int pageSize) {
         List<Withdrawal> withdrawalList = withdrawalDao.findAllByUserIdAndCatID(userID, catID, pageNo, pageSize);
         Page<Withdrawal> pagedResult = new PageImpl<>(withdrawalList);
-        if (pagedResult != null && pagedResult.hasContent()) return pagedResult.toList();
+        if (pagedResult.hasContent()) return pagedResult.toList();
         else return new ArrayList<>();
     }
 }

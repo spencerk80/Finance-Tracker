@@ -4,23 +4,20 @@ import com.GenSpark.Finance.Tracker.entity.NewUserRequest;
 import com.GenSpark.Finance.Tracker.entity.User;
 import com.GenSpark.Finance.Tracker.enums.UserRole;
 import com.GenSpark.Finance.Tracker.service.UserService;
-import com.GenSpark.Finance.Tracker.util.JWT;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.sql.SQLIntegrityConstraintViolationException;
 
 @RestController
 public class UserController {
 
-    private UserService userService;
-    private PasswordEncoder passwordEncoder;
+    private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public UserController(UserService userService, PasswordEncoder passwordEncoder) {

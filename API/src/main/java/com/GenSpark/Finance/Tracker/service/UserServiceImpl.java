@@ -24,19 +24,19 @@ public class UserServiceImpl implements UserService {
     @Override
     public String saveUser(User user) {
         userDao.save(user);
-        return "Successfully added the category";
+        return "Successfully added the user";
     }
 
     @Override
     public String updateUser(User user) {
         userDao.save(user);
-        return "Successfully updated the category";
+        return "Successfully updated the user";
     }
 
     @Override
     public String deleteUserByID(int userID) {
         userDao.deleteById(userID);
-        return "Successfully deleted the category";
+        return "Successfully deleted the user";
     }
 
     @Override

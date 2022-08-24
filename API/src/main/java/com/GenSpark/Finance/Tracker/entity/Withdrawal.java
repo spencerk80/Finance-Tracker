@@ -93,7 +93,7 @@ public class Withdrawal {
     @Override
     public String toString() {
         return "Withdrawal{" +
-                "withDrawalID=" + withdrawalID +
+                "withdrawalID=" + withdrawalID +
                 ", category=" + category +
                 ", user=" + user +
                 ", amount=" + amount +
