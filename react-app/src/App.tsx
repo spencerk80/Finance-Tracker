@@ -10,8 +10,6 @@ import { useState } from "react";
 import { GlobalStateProvider } from "./context/GlobalStateProvider";
 
 function App() {
-  const [user, setUser] = useState(false);
-
   return (
     <div>
       <GlobalStateProvider>
