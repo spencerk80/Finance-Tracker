@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.keygen.BytesKeyGenerator;
 import org.springframework.security.crypto.keygen.KeyGenerators;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -52,11 +53,13 @@ public class EmailVerTokenServiceImpl implements EmailVerTokenService {
     }
 
     @Override
+    @Transactional
     public void removeToken(EmailVerToken token) {
         emailVerTokenDao.delete(token);
     }
 
     @Override
+    @Transactional
     public void removeToken(String token) {
         emailVerTokenDao.removeByToken(token);
     }

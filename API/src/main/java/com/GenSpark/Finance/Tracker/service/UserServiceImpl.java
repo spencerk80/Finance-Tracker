@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     public UserServiceImpl(
             UserDao userDao, EmailVerTokenService emailVerTokenService, EmailService emailService,
-            @Value("emailVerToken.service.url") String tokenServiceUrl, @Value("spring.mail.username") String from
+            @Value("${emailVerToken.service.url}") String tokenServiceUrl, @Value("${spring.mail.username}") String from
     ) {
         this.userDao = userDao;
         this.emailVerTokenService = emailVerTokenService;
@@ -40,10 +40,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String saveUser(User user) throws MessagingException {
+    public String saveUser(User user) {
         userDao.save(user);
 
-        sendRegConfEmail(user);
+        //On its own thread to stop holding up the API from responding
+        new Thread(() -> {
+            try {
+                sendRegConfEmail(user);
+            } catch(MessagingException e) {
+                //to-do log this or something
+                System.err.println(e.getMessage());
+            }
+        }).start();
+
         return "Successfully added user";
     }
 
@@ -71,6 +80,7 @@ public class UserServiceImpl implements UserService {
         context.setUrl(this.tokenServiceUrl);
         context.setFrom(from);
         context.setSubject("Finish your account set up!");
+        context.setTo(user.getEmail());
 
         emailService.sendMail(context);
     }

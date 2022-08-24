@@ -15,10 +15,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 
@@ -69,8 +66,8 @@ public class AuthController {
         return ResponseEntity.ok().body("Bye-bye");
     }
 
-    @PostMapping("/auth/verify")
-    public void EmailVerifyLinkProcessing(@RequestBody String token) {
+    @GetMapping("/auth/verify/{token}")
+    public void EmailVerifyLinkProcessing(@PathVariable String token) {
         EmailVerToken   emailVerToken   = emailVerTokenService.findByTokenStr(token);
         User            user            = emailVerToken.getUser();
         LocalDateTime   now             = LocalDateTime.now();

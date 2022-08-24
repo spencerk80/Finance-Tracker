@@ -49,7 +49,7 @@ public class VerificationEmailContext {
 
     public void setUrl(String url) {
         this.url = url;
-        context.put("url", url);
+        context.put("url", url + "/" + token);
     }
 
     public String getToken() {

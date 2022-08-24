@@ -7,20 +7,11 @@
         <meta name="x-apple-disable-message-reformatting">  <!-- Disable auto-scale in iOS 10 Mail entirely -->
     
         <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
-        <script>
-            function handleClick() {
-                fetch(${url}, {
-                    method: "POST",
-                    header: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(`{token: ${token}}`)
-                })
-            }
-        </script>
     </head>
     
     <body width="100%" style="margin: 0; padding: 0 !important; mso-line-height-rule: exactly; background-color: #f1f1f1;">
-        <button>Verify account</button>
+        <a th:href="${url}">
+            <button>Verify account</button>
+        </a>
     </body>
 </html>

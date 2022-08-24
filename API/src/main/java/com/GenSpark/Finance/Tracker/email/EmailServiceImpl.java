@@ -31,7 +31,7 @@ public class EmailServiceImpl implements EmailService {
                 message, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, StandardCharsets.UTF_8.name()
         );
         context.setVariables(emailContext.getContext());
-        emailContent = templateEngine.process("email.html, context", context);
+        emailContent = templateEngine.process("email.html", context);
 
         helper.setTo(emailContext.getTo());
         helper.setSubject(emailContext.getSubject());
