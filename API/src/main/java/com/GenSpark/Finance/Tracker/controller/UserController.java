@@ -18,8 +18,8 @@ import java.util.HashSet;
 @RestController
 public class UserController {
 
-    private UserService userService;
-    private PasswordEncoder passwordEncoder;
+    private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public UserController(UserService userService, PasswordEncoder passwordEncoder) {
@@ -33,7 +33,7 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<String> saveUser(@RequestBody User user) {
+    public ResponseEntity<String> saveUser(@RequestBody User user) throws MessagingException {
         this.userService.saveUser(user);
         return ResponseEntity.ok().body("User saved");
     }

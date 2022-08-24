@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public String deleteUserByID(int userID) {
         userDao.deleteById(userID);
-        return "Successfully deleted the category";
+        return "Successfully deleted the user";
     }
 
     @Override
