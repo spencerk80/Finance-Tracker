@@ -29,19 +29,19 @@ public class WithdrawalServiceImpl implements WithdrawalService{
     @Override
     public String saveWithdrawal(Withdrawal withdrawal) {
         withdrawalDao.save(withdrawal);
-        return "Successfully added the category";
+        return "Successfully added the withdrawal";
     }
 
     @Override
     public String updateWithdrawal(Withdrawal withdrawal) {
         withdrawalDao.save(withdrawal);
-        return "Successfully updated the category";
+        return "Successfully updated the withdrawal";
     }
 
     @Override
     public String deleteWithdrawalByID(int withdrawalID) {
         withdrawalDao.deleteById(withdrawalID);
-        return "Successfully deleted the category";
+        return "Successfully deleted the withdrawal";
     }
 
     @Override
