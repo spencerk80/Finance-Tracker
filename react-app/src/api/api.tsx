@@ -84,14 +84,17 @@ const authRequests = {
       localStorage.setItem("email", JSON.stringify(response.data.user.email));
       localStorage.setItem("role", JSON.stringify(response.data.user.role));
       localStorage.setItem("fName", JSON.stringify(response.data.user.fName));
+      localStorage.setItem("userId", JSON.stringify(response.data.user.userID));
     }),
-  // post
+  postOut: (url: string, body: Auth) =>
+    authInstance.post<Auth>(url, body).then(responseBody),
 };
 
 export const Auths = {
   login: (authRequest: any): Promise<any> =>
     authRequests.post("/auth/login", authRequest),
-  // logout
+  logout: (auth: Auth): Promise<Auth> =>
+    authRequests.postOut("/auth/logout", auth),
 };
 
 //category controllers

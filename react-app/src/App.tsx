@@ -6,8 +6,8 @@ import Register from "./pages/Register/Register";
 import RequireAuth from "./components/RequireAuth/RequireAuth";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import { Route, Routes } from "react-router-dom";
-import { useState } from "react";
 import { GlobalStateProvider } from "./context/GlobalStateProvider";
+import LogoutPage from "./pages/Logout/LogoutPage";
 
 function App() {
   return (
@@ -19,8 +19,10 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route element={<RequireAuth />}>
-            {/* {/* DASHBOARD ROUTES TO BE PROTECTED */}
             <Route path="/dashboard" element={<Dashboard />} />
+          </Route>
+          <Route element={<RequireAuth />}>
+            <Route path="/logout" element={<LogoutPage />} />
           </Route>
         </Routes>
         <Footer />
