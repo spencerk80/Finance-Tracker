@@ -10,8 +10,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import java.net.URI;
 import java.net.URISyntaxException;
+
+import java.util.HashSet;
 
 @RestController
 public class UserController {
@@ -40,12 +43,18 @@ public class UserController {
     public ResponseEntity<String> registerUser(@RequestBody NewUserRequest user) throws URISyntaxException {
         if( ! user.validate()) return ResponseEntity.badRequest().body("Invalid user data");
 
-        User validUser = new User(
+        User validUser;
+        validUser = new User(
                 passwordEncoder.encode(user.getPassword()), user.getFname(),
-                user.getLname(), user.getEmail(), UserRole.USER, false
+                user.getLname(), user.getEmail(), UserRole.USER, false,
+                new HashSet<>()
         );
 
-        userService.saveUser(validUser);
+        try {
+            userService.saveUser(validUser);
+        } catch(MessagingException e) {
+            return ResponseEntity.badRequest().body("Invalid email address");
+        }
 
         return ResponseEntity.created(new URI("/users/register")).body("");
     }
