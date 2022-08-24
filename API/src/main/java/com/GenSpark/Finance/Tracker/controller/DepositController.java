@@ -28,11 +28,6 @@ public class DepositController {
         }
     }
 
-    @GetMapping("/deposits/{depositID}")
-    public ResponseEntity<Deposit> getDeposit(@PathVariable String depositID) {
-        return ResponseEntity.ok().body(this.depositService.getDepositByID(Integer.parseInt(depositID)));
-    }
-
     @PostMapping("/deposits")
     public ResponseEntity<String> saveDeposit(@RequestBody Deposit deposit) {
         return ResponseEntity.ok().body(this.depositService.saveDeposit(deposit));

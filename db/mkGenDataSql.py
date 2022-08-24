@@ -6,7 +6,7 @@ from datetime import timedelta
 fnames = ['Bob', 'Terry', 'Sarah', 'Jenny']
 lnames = ['Smith', 'Prime', 'Conner', 'Baker']
 emails = ['b.smith@email.com', 't.prime@email.com', 's.conner@email.com', 'j.baker@email.com']
-passwords = ['$2a$10$P.QxV9.QTpxpmoZavv3So.Rd6jg9eu7ZfPmaC9v0Xeo2WqKBrc6z2', '$2a$10$P.QxV9.QTpxpmoZavv3So.Rd6jg9eu7ZfPmaC9v0Xeo2WqKBrc6z2', '$2a$10$P.QxV9.QTpxpmoZavv3So.Rd6jg9eu7ZfPmaC9v0Xeo2WqKBrc6z2', '$2a$10$P.QxV9.QTpxpmoZavv3So.Rd6jg9eu7ZfPmaC9v0Xeo2WqKBrc6z2']
+passwords = ['$2a$10$JFfCDdtjQXe2itImKToPmOLOR74VR91PjG2jyGxMvWZCRlZnzfF5u', '$2a$10$JFfCDdtjQXe2itImKToPmOLOR74VR91PjG2jyGxMvWZCRlZnzfF5u', '$2a$10$JFfCDdtjQXe2itImKToPmOLOR74VR91PjG2jyGxMvWZCRlZnzfF5u', '$2a$10$JFfCDdtjQXe2itImKToPmOLOR74VR91PjG2jyGxMvWZCRlZnzfF5u']
 roles = ['USER', 'USER', 'USER', 'USER']
 verified = 1
 
@@ -38,22 +38,22 @@ def writeCategories():
 
 # Write random data for 1000 withdrawal transactions
 def writeWithdrawals():
-    for i in range(0, 1000):
+    for i in range(0, 4000):
         userid = random.randint(0, 3)
         catid = random.randint(0, 2)
         amount = round(random.uniform(100.0, 1200.0), 2)
-        tDate = date.today() - timedelta(days= random.randint(0,100))
+        tDate = date.today() - timedelta(days= random.randint(0,720))
 
         file.write(f'INSERT INTO withdrawal (withdrawalid, user_userid, category_categoryid, amount, date) VALUES ({i}, \'{userid}\', \'{catid}\', \'{amount}\', \'{tDate}\');\n')
 
 
 # Write random data for 300 deposites transactions
 def writeDeposits():
-    for i in range(0, 300):
+    for i in range(0, 1200):
         userid = random.randint(0, 3)
         catid = 3
         amount = round(random.uniform(100.0, 500.0), 2)
-        tDate = date.today() - timedelta(days= random.randint(0,100))
+        tDate = date.today() - timedelta(days= random.randint(0,720))
 
         file.write(f'INSERT INTO deposit (depositid, user_userid, category_categoryid, amount, date) VALUES ({i}, \'{userid}\', \'{catid}\', \'{amount}\', \'{tDate}\');\n')
 

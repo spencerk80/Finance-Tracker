@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.mail.MessagingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashSet;
@@ -45,15 +44,10 @@ public class UserController {
         User validUser;
         validUser = new User(
                 passwordEncoder.encode(user.getPassword()), user.getFname(),
-                user.getLname(), user.getEmail(), UserRole.USER, false,
-                new HashSet<>()
+                user.getLname(), user.getEmail(), UserRole.USER, false
         );
 
-        try {
-            userService.saveUser(validUser);
-        } catch(MessagingException e) {
-            return ResponseEntity.badRequest().body("Invalid email address");
-        }
+        userService.saveUser(validUser);
 
         return ResponseEntity.created(new URI("/users/register")).body("");
     }

@@ -1,6 +1,5 @@
 package com.GenSpark.Finance.Tracker.service;
 
-import com.GenSpark.Finance.Tracker.dao.EmailVerTokenDao;
 import com.GenSpark.Finance.Tracker.entity.EmailVerToken;
 
 public interface EmailVerTokenService {
