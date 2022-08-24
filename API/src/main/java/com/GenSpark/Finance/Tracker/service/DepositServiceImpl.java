@@ -28,19 +28,19 @@ public class DepositServiceImpl implements DepositService {
     @Override
     public String saveDeposit(Deposit deposit) {
         depositDao.save(deposit);
-        return "Successfully added the category";
+        return "Successfully added the deposit";
     }
 
     @Override
     public String updateDeposit(Deposit deposit) {
         depositDao.save(deposit);
-        return "Successfully updated the category";
+        return "Successfully updated the deposit";
     }
 
     @Override
     public String deleteDepositByID(int depositID) {
         depositDao.deleteById(depositID);
-        return "Successfully deleted the category";
+        return "Successfully deleted the deposit";
     }
 
     @Override

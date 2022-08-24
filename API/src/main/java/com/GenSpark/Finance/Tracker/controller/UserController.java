@@ -32,7 +32,7 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<String> saveUser(@RequestBody User user) {
+    public ResponseEntity<String> saveUser(@RequestBody User user) throws MessagingException {
         this.userService.saveUser(user);
         return ResponseEntity.ok().body("User saved");
     }
