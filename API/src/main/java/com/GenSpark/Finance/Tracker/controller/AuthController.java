@@ -22,11 +22,11 @@ import java.time.LocalDateTime;
 @RestController
 public class AuthController {
 
-    private AuthenticationManager   authManager;
-    private UserDetailsService      userDetailsService;
-    private EmailVerTokenService    emailVerTokenService;
-    private UserService             userService;
-    private JWT                     JWT;
+    private final AuthenticationManager   authManager;
+    private final UserDetailsService      userDetailsService;
+    private final EmailVerTokenService    emailVerTokenService;
+    private final UserService             userService;
+    private final JWT                     JWT;
 
     @Autowired
     public AuthController(

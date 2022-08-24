@@ -46,7 +46,7 @@ public class DepositServiceImpl implements DepositService {
     @Override
     public List<Deposit> getDeposits(int pageNo, int pageSize) {
         Page<Deposit> pagedResult = depositDao.findAll(PageRequest.of(pageNo, pageSize));
-        if (pagedResult != null && pagedResult.hasContent()) return pagedResult.toList();
+        if (pagedResult.hasContent()) return pagedResult.toList();
         else return new ArrayList<>();
     }
 
@@ -54,7 +54,7 @@ public class DepositServiceImpl implements DepositService {
     public List<Deposit> getPageOfDepositsByUserID(int userID, int pageNo, int pageSize) {
         List<Deposit> depositList = depositDao.findAllByUserID(userID, pageNo, pageSize);
         Page<Deposit> pagedResult = new PageImpl<>(depositList);
-        if (pagedResult != null && pagedResult.hasContent()) return pagedResult.toList();
+        if (pagedResult.hasContent()) return pagedResult.toList();
         else return new ArrayList<>();
     }
 
@@ -62,7 +62,7 @@ public class DepositServiceImpl implements DepositService {
     public List<Deposit> getPageOfDepositsByUserIdAndCatID(int userID, int catID, int pageNo, int pageSize) {
         List<Deposit> depositList = depositDao.findAllByUserIdAndCatID(userID, catID, pageNo, pageSize);
         Page<Deposit> pagedResult = new PageImpl<>(depositList);
-        if (pagedResult != null && pagedResult.hasContent()) return pagedResult.toList();
+        if (pagedResult.hasContent()) return pagedResult.toList();
         else return new ArrayList<>();
     }
 }

@@ -4,6 +4,7 @@ import com.GenSpark.Finance.Tracker.enums.UserRole;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -34,8 +35,7 @@ public class User {
     public User() {}
 
     public User(
-            String password, String fName, String lName, String email, UserRole role, boolean verified,
-            Set<EmailVerToken> tokens
+            String password, String fName, String lName, String email, UserRole role, boolean verified
     ) {
         this.password = password;
         this.fName = fName;
@@ -43,7 +43,7 @@ public class User {
         this.email = email;
         this.role = role;
         this.verified = verified;
-        this.tokens = tokens;
+        this.tokens = new HashSet<>();
     }
 
     public int getUserID() {
