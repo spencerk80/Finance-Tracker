@@ -37,6 +37,7 @@ public class JwtFilter extends OncePerRequestFilter {
         if(
                 "/auth/login".matches(request.getRequestURI())
                 || "/user/register".matches(request.getRequestURI())
+                || request.getRequestURI().contains("/auth/verify")
         ) {
             filterChain.doFilter(request, response);
             return;
