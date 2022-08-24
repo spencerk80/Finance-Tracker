@@ -23,19 +23,13 @@ const Navbar = () => {
         <div className="hidden md:flex">
           <ul className="flex items-center text-white">
             <li>
-              <Link to="HowItWorks" spy={true} smooth={true} duration={500}>
-                How It Works
-              </Link>
+              <RouterLink to="/">How It Works</RouterLink>
             </li>
             <li>
-              <Link to="TheMission" spy={true} smooth={true} duration={500}>
-                The Mission
-              </Link>
+              <RouterLink to="/">The Mission</RouterLink>
             </li>
             <li>
-              <Link to="TheTeam" spy={true} smooth={true} duration={500}>
-                The Team
-              </Link>
+              <RouterLink to="/">The Team</RouterLink>
             </li>
             <li>
               <RouterLink to="/login">Login</RouterLink>
