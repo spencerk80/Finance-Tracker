@@ -32,6 +32,12 @@ public class UserController {
         return ResponseEntity.ok().body(this.userService.getUserByID(Integer.parseInt(userID)));
     }
 
+    @PostMapping("/users")
+    public ResponseEntity<String> saveUser(@RequestBody User user) {
+        this.userService.saveUser(user);
+        return ResponseEntity.ok().body("User saved");
+    }
+
     @PostMapping("/users/register")
     public ResponseEntity<String> registerUser(@RequestBody NewUserRequest user) throws URISyntaxException {
         if( ! user.validate()) return ResponseEntity.badRequest().body("Invalid user data");

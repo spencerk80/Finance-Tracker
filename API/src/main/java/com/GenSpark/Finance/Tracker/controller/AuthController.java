@@ -43,6 +43,7 @@ public class AuthController {
     @PostMapping("/auth/login")
     public ResponseEntity<AuthenticationResponse> authUser(@RequestBody AuthenticationRequest authRequest) {
         UserDetails userDetails;
+        User        user;
         AuthenticationResponse response = new AuthenticationResponse();
 
         try {
@@ -54,7 +55,10 @@ public class AuthController {
         }
 
         userDetails = userDetailsService.loadUserByUsername(authRequest.getEmail());
+        user = userService.getUserByEmail(userDetails.getUsername());
+
         response.setJwt(JWT.createJWT(userDetails));
+        response.setUser(user);
 
         return ResponseEntity.ok(response);
     }
