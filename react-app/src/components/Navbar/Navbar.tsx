@@ -1,17 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { Link as RouterLink } from "react-router-dom";
 
 const Navbar = () => {
   const [nav, setNav] = useState<boolean>(false);
+  const [role, setRole] = useState<boolean>(false);
   const handleNav = () => {
     setNav(!nav);
+  };
+
+  const handleRole = () => {
+    if (localStorage.getItem("role")!) {
+      setRole(true);
+    }
   };
 
   return (
     <div
       id="navbar"
       className="w-full h-[90px] bg-brand border-b border-brand-light"
+      onMouseMove={handleRole}
     >
       <div className="max-w-auto mx-auto px-4 flex justify-between items-center h-full">
         <div>
@@ -31,13 +39,17 @@ const Navbar = () => {
               <RouterLink to="/">The Team</RouterLink>
             </li>
             <li>
-              <RouterLink to="/login">Login</RouterLink>
+              {role ? (
+                <RouterLink to="/logout">Logout</RouterLink>
+              ) : (
+                <RouterLink to="/login">Login</RouterLink>
+              )}
             </li>
             <li>
               <RouterLink to="/register">Register</RouterLink>
             </li>
             <li>
-              <RouterLink to="/dashboard">Dashboard</RouterLink>
+              <RouterLink to="dashboard">Dashboard</RouterLink>
             </li>
           </ul>
         </div>
@@ -70,13 +82,17 @@ const Navbar = () => {
               <RouterLink to="/">The Team</RouterLink>
             </li>
             <li>
-              <RouterLink to="/login">Login</RouterLink>
+              {role ? (
+                <RouterLink to="/logout">Logout</RouterLink>
+              ) : (
+                <RouterLink to="/login">Login</RouterLink>
+              )}
             </li>
             <li>
               <RouterLink to="/register">Register</RouterLink>
             </li>
             <li>
-              <RouterLink to="../../pages/Dashboard">Dashboard</RouterLink>
+              <RouterLink to="/Dashboard">Dashboard</RouterLink>
             </li>
           </ul>
         </div>
