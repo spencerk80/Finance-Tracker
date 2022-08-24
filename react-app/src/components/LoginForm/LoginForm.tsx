@@ -1,67 +1,52 @@
-import { useRef, useState, useEffect, useMemo } from "react";
+import { AxiosResponse } from "axios";
+import { useRef, useState, useEffect, useMemo, useContext } from "react";
 import { useLocation, useNavigate, Link as RouterLink } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
-import axios from "axios";
-
-const LOGIN_URL = "http://localhost:8080/auth/login";
+import { Auths } from "../../api/api";
+import { useGlobalState } from "../../context/GlobalStateProvider";
 
 function Login() {
-  const { setAuth } = useAuth();
-
+  const { setState } = useGlobalState();
   const navigate = useNavigate();
   const location = useLocation();
   const navigatePathname = useMemo(() => {
     const state = location.state as { from: Location };
     if (state && state.from) return state.from;
-    else return "/";
+    else return "/dashboard";
   }, [location]);
 
-  const userRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
   const errRef = useRef<HTMLParagraphElement>(null);
 
-  const [user, setUser] = useState("");
+  const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
   const [errMsg, setErrMsg] = useState("");
 
   useEffect(() => {
-    if (userRef.current) userRef.current.focus();
+    if (emailRef.current) emailRef.current.focus();
   }, []);
 
   useEffect(() => {
     setErrMsg("");
-  }, [user, pwd]);
+  }, [email, pwd]);
 
-  interface LoginUserResponse {
-    email: String;
-    password: String;
-  }
+  const authRequest = {
+    email: email,
+    password: pwd,
+  };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      const { data } = await axios.post<LoginUserResponse>(
-        LOGIN_URL,
-        JSON.stringify({ email: user, password: pwd }),
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
-      );
-      console.log(JSON.stringify(data));
-      setAuth({ data });
-      setUser("");
-      setPwd("");
-      navigate(navigatePathname, { replace: true });
-      return data;
-    } catch (err) {
-      if (axios.isAxiosError(err)) {
-        console.log(err.message);
-        return err.message;
-      } else {
-        setErrMsg("Login Failed");
-      }
-      if (errRef.current) errRef.current.focus();
-    }
+    Auths.login(authRequest)
+      .then((response) => {
+        setEmail("");
+        setPwd("");
+        navigate(navigatePathname, { replace: true });
+        return response;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    if (errRef.current) errRef.current.focus();
   };
 
   return (
@@ -84,10 +69,10 @@ function Login() {
             <input
               type="text"
               id="email"
-              ref={userRef}
+              ref={emailRef}
               autoComplete="off"
-              onChange={(e) => setUser(e.target.value)}
-              value={user}
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
               required
             />
             <label htmlFor="password">Password:</label>
