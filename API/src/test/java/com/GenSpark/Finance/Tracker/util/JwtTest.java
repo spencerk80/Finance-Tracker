@@ -20,19 +20,16 @@ import static org.junit.jupiter.api.Assertions.*;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class JwtTest {
 
-    private UserDao userDao;
-
-    private UserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
     private UserDetails userDetails;
 
     private final String    userEmail = "b.smith@email.com",
                             userRole = "[USER]";
-    private JWT JWT;
+    private final JWT JWT;
     private String jwtStr;
 
     @Autowired
     public JwtTest(UserDao dao, JWT jwt) {
-        userDao = dao;
         userDetailsService = new UserDetailsService(dao);
         this.JWT = jwt;
     }

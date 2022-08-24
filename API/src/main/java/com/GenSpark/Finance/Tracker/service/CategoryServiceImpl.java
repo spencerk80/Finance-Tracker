@@ -58,7 +58,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<Category> getAll(int pageNo, int pageSize) {
         Page<Category> pagedResult = categoryDao.findAll(PageRequest.of(pageNo, pageSize));
-        if (pagedResult.hasContent() && pagedResult != null) return pagedResult.toList();
+        if (pagedResult.hasContent()) return pagedResult.toList();
         else return new ArrayList<>();
     }
 }
