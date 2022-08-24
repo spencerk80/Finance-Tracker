@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
-import { Link } from "react-scroll";
-import { Route, Routes, Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 
 const Navbar = () => {
   const [nav, setNav] = useState<boolean>(false);
@@ -23,19 +22,13 @@ const Navbar = () => {
         <div className="hidden md:flex">
           <ul className="flex items-center text-white">
             <li>
-              <Link to="HowItWorks" spy={true} smooth={true} duration={500}>
-                How It Works
-              </Link>
+              <RouterLink to="/">How It Works</RouterLink>
             </li>
             <li>
-              <Link to="TheMission" spy={true} smooth={true} duration={500}>
-                The Mission
-              </Link>
+              <RouterLink to="/">The Mission</RouterLink>
             </li>
             <li>
-              <Link to="TheTeam" spy={true} smooth={true} duration={500}>
-                The Team
-              </Link>
+              <RouterLink to="/">The Team</RouterLink>
             </li>
             <li>
               <RouterLink to="/login">Login</RouterLink>
@@ -44,7 +37,7 @@ const Navbar = () => {
               <RouterLink to="/register">Register</RouterLink>
             </li>
             <li>
-              <RouterLink to="../../pages/Dashboard">Dashboard</RouterLink>
+              <RouterLink to="/dashboard">Dashboard</RouterLink>
             </li>
           </ul>
         </div>
@@ -67,10 +60,24 @@ const Navbar = () => {
           }
         >
           <ul>
-            <li className="text-2xl">How It Works</li>
-            <li className="text-2xl">The Mission</li>
-            <li className="text-2xl">The Team</li>
-            <li className="text-2xl">Login</li>
+            <li>
+              <RouterLink to="/">How It Works</RouterLink>
+            </li>
+            <li>
+              <RouterLink to="/">The Mission</RouterLink>
+            </li>
+            <li>
+              <RouterLink to="/">The Team</RouterLink>
+            </li>
+            <li>
+              <RouterLink to="/login">Login</RouterLink>
+            </li>
+            <li>
+              <RouterLink to="/register">Register</RouterLink>
+            </li>
+            <li>
+              <RouterLink to="../../pages/Dashboard">Dashboard</RouterLink>
+            </li>
           </ul>
         </div>
       </div>

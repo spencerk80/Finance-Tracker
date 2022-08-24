@@ -35,6 +35,14 @@
   }
 
   form {
-    @apply flex flex-col justify-evenly flex-grow p-4 bg-brand-light text-white text-brand md:min-w-[80%] md:min-h-[80%];
+    @apply flex flex-col justify-evenly flex-grow p-4 bg-brand-light text-white text-brand min-w-[80%] min-h-[80%];
+  }
+
+  label {
+    @apply text-xl p-2 m-2;
+  }
+
+  input {
+    @apply p-2 m-2 rounded-xl border-brand border-2 cursor-pointer;
   }
 }
