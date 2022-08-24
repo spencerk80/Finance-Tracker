@@ -35,7 +35,8 @@ public class UserController {
 
     @PostMapping("/users")
     public ResponseEntity<String> saveUser(@RequestBody User user) {
-            return ResponseEntity.ok().body(this.userService.saveUser(user));
+        this.userService.saveUser(user);
+        return ResponseEntity.ok().body("User saved");
     }
 
     @PostMapping("/users/register")
@@ -47,7 +48,7 @@ public class UserController {
                 user.getLname(), user.getEmail(), UserRole.USER, false
         );
 
-            userService.saveUser(validUser);
+        userService.saveUser(validUser);
 
         return ResponseEntity.created(new URI("/users/register")).body("");
     }

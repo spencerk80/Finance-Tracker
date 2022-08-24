@@ -2,7 +2,9 @@ package com.GenSpark.Finance.Tracker.controller;
 
 import com.GenSpark.Finance.Tracker.entity.AuthenticationRequest;
 import com.GenSpark.Finance.Tracker.entity.AuthenticationResponse;
+import com.GenSpark.Finance.Tracker.entity.User;
 import com.GenSpark.Finance.Tracker.security.UserDetailsService;
+import com.GenSpark.Finance.Tracker.service.UserService;
 import com.GenSpark.Finance.Tracker.util.JWT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -21,18 +23,23 @@ public class AuthController {
 
     private AuthenticationManager   authManager;
     private UserDetailsService      userDetailsService;
+    private UserService             userService;
     private JWT                     JWT;
 
     @Autowired
-    public AuthController(AuthenticationManager authManager, UserDetailsService userDetailsService, JWT jwt) {
+    public AuthController(
+            AuthenticationManager authManager, UserDetailsService userDetailsService, UserService userService, JWT jwt
+    ) {
         this.authManager = authManager;
         this.userDetailsService = userDetailsService;
+        this.userService = userService;
         this.JWT = jwt;
     }
 
     @PostMapping("/auth/login")
     public ResponseEntity<AuthenticationResponse> authUser(@RequestBody AuthenticationRequest authRequest) {
         UserDetails userDetails;
+        User        user;
         AuthenticationResponse response = new AuthenticationResponse();
 
         try {
@@ -44,7 +51,10 @@ public class AuthController {
         }
 
         userDetails = userDetailsService.loadUserByUsername(authRequest.getEmail());
+        user = userService.getUserByEmail(userDetails.getUsername());
+
         response.setJwt(JWT.createJWT(userDetails));
+        response.setUser(user);
 
         return ResponseEntity.ok(response);
     }
