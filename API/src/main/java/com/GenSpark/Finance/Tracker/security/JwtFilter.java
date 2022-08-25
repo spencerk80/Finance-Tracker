@@ -1,5 +1,6 @@
 package com.GenSpark.Finance.Tracker.security;
 
+import com.GenSpark.Finance.Tracker.service.JwtBlacklistService;
 import com.GenSpark.Finance.Tracker.util.JWT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,13 +18,15 @@ import java.io.IOException;
 
 @Component
 public class JwtFilter extends OncePerRequestFilter {
-    private final UserDetailsService userDetailsService;
-    private final JWT                JWT;
+    private final UserDetailsService    userDetailsService;
+    private final JWT                   JWT;
+    private final JwtBlacklistService   jwtBlacklistService;
 
     @Autowired
-    public JwtFilter(UserDetailsService userDetailsService, JWT jwt) {
+    public JwtFilter(UserDetailsService userDetailsService, JWT jwt, JwtBlacklistService jwtBlacklistService) {
         this.userDetailsService = userDetailsService;
         this.JWT = jwt;
+        this.jwtBlacklistService = jwtBlacklistService;
     }
 
     @Override
@@ -51,7 +54,7 @@ public class JwtFilter extends OncePerRequestFilter {
         if(email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(email);
 
-            if(JWT.validateJwt(jwt, userDetails)) {
+            if(JWT.validateJwt(jwt, userDetails) && ! jwtBlacklistService.jwtIsOnBlacklist(jwt)) {
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken;
 
                 usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(

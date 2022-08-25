@@ -10,15 +10,12 @@ import javax.xml.bind.DatatypeConverter;
 import java.security.Key;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Component
 public class JWT {
 
     private final String secretKey;
-    private static final List<String> blacklist = new ArrayList<>();
 
     public JWT(@Value("${jwt.key}") String key) {
         this.secretKey = key;
@@ -81,30 +78,9 @@ public class JWT {
                     .getBody();
         } catch(Exception e) { return false; }
 
-        if(jwtIsBlacklisted(jwt))                                                      return false;
         if( ! (claims.get("email")).equals(userDetails.getUsername()))                 return false;
         if( ! (claims.get("role")).equals(userDetails.getAuthorities().toString()))    return false;
 
-        if( ! claims.getExpiration().before(new Date())) System.out.println("date checks out");
-
         return ! claims.getExpiration().before(new Date());
-    }
-
-    public boolean jwtIsBlacklisted(String jwt) {
-        return blacklist.contains(jwt);
-    }
-
-    public void blacklistJwt(String jwt) {
-        blacklist.add(jwt);
-
-        //Clean up the blacklist on a separate thread
-        new Thread(() -> {
-            LocalDateTime now = LocalDateTime.now();
-
-            blacklist.forEach(token -> {
-                if(getJwtExpiration(token).isBefore(now))
-                    blacklist.remove(token);
-            });
-        });
     }
 }
