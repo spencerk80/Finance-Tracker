@@ -1,5 +1,5 @@
 import React from "react";
-import graph from "/home/jack/Documents/web-projects/Finance-Tracker/react-app/src/assets/FutureWealth.png";
+import graph from "../../assets/FutureWealth.png";
 
 const Hero = () => {
   return (
