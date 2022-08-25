@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class JwtTest {
-
     private final UserDetailsService userDetailsService;
     private UserDetails userDetails;
 
